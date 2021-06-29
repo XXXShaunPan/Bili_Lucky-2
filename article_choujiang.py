@@ -7,9 +7,9 @@ from datetime import datetime
 from pytz import timezone
 # from lxml import etree
 
-csrf=os.environ["CSRF"]
+csrf=123
 
-article_id=os.environ["article_id"]
+article_id='123'
 
 today=datetime.now(timezone('Asia/Shanghai')).strftime('%Y-%m-%d')
 today_filename=datetime.now(timezone('Asia/Shanghai')).strftime('%Y-%m-%d=%H')
@@ -19,7 +19,7 @@ today_list=[]
 
 header={
 	'content-type':'application/x-www-form-urlencoded',
-	'cookie':os.environ["BILI_COOKIE"],
+	'cookie':'os.environ["BILI_COOKIE"]',
         'origin':'https://t.bilibili.com',
 	'pragma':'no-cache',
 	'referer':'https://t.bilibili.com/',
@@ -144,14 +144,14 @@ def get_son_lucky_dy(dy_id):
 		i=json.loads(j['card'])
 		if all([key in i['item']['content'] for key in ['关注','抽','转']]) and '//' not in i['item']['content']:
 			son_dy_id=j['desc']['dynamic_id']
-			if son_dy_id not in already_dynamic_id:
-			get_comment_word(son_dy_id)
-			to_comment(1,son_dy_id,True)
-			to_repost(son_dy_id)
-			to_follow(j['desc']['uid'])
-			already_dynamic_id.append(son_dy_id)
-			dynamic_redis.save_dynamic(son_dy_id)
-			print()
+			if son_dy_id not in already_dynamic_id:		
+				get_comment_word(son_dy_id)
+				to_comment(1,son_dy_id,True)
+				to_repost(son_dy_id)
+				to_follow(j['desc']['uid'])
+				already_dynamic_id.append(son_dy_id)
+				dynamic_redis.save_dynamic(son_dy_id)
+				print()
 	print("*****子动态结束*****\n\n")
 
 
