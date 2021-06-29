@@ -136,6 +136,25 @@ def get_uid_oid(dy_id):
 	return keys['uid'],keys['rid'],keys['user_profile']['info']['uname'], keys['orig_dy_id']
 
 
+def get_son_lucky_dy(dy_id):
+	time.sleep(2)
+	res=spider_get(get_son_dy_url(dy_id))['data']['items']
+	print('*****子动态开始*****')
+	for j in res:
+	    i=json.loads(j['card'])
+	    if all([key in i['item']['content'] for key in ['关注','抽','转']]) and '//' not in i['item']['content']:
+	    	son_dy_id=j['desc']['dynamic_id']
+	    	if son_dy_id not in already_dynamic_id:
+	    		get_comment_word(son_dy_id)
+		        to_comment(1,son_dy_id,True)
+		        to_repost(son_dy_id)
+		        to_follow(j['desc']['uid'])
+		        already_dynamic_id.append(son_dy_id)
+		        dynamic_redis.save_dynamic(son_dy_id)
+		        print()
+	print("*****子动态结束*****\n\n")
+
+
 def parse_origin_dy(origin):
 	if origin['dynamic_id'] not in already_dynamic_id:
 		print("*************原动态处理开始***************")
@@ -147,6 +166,7 @@ def parse_origin_dy(origin):
 			dynamic_redis.save_dynamic(origin['dynamic_id'])
 			already_dynamic_id.append(origin['dynamic_id'])
 			print("*************原动态处理完成***************")
+			get_son_lucky_dy()
 			return 1
 		return 0
 	print("*************原动态已存在***************")
@@ -246,4 +266,3 @@ if __name__ == '__main__':
 	if today_list:
 		with open(f'List/{today_filename}.txt', 'w') as f:
 			f.write('=='.join(today_list))
-
