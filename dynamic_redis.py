@@ -14,7 +14,8 @@ def save_dynamic(dynamic_id,filename='dy_id2.txt'):
 
 
 def save_official_lucky(official_lucky):
-	rd.lpush("official_lucky_uid_dynamic", official_lucky)
+	pass
+# 	rd.lpush("official_lucky_uid_dynamic", official_lucky)
 
 
 def get_dynamic(filename='dy_id2.txt'):
