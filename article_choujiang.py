@@ -7,9 +7,9 @@ from datetime import datetime
 from pytz import timezone
 # from lxml import etree
 
-csrf=123
+csrf=os.environ["CSRF"]
 
-article_id='123'
+article_id=os.environ["article_id"]
 
 today=datetime.now(timezone('Asia/Shanghai')).strftime('%Y-%m-%d')
 today_filename=datetime.now(timezone('Asia/Shanghai')).strftime('%Y-%m-%d=%H')
@@ -19,7 +19,7 @@ today_list=[]
 
 header={
 	'content-type':'application/x-www-form-urlencoded',
-	'cookie':'os.environ["BILI_COOKIE"]',
+	'cookie':os.environ["BILI_COOKIE"],
         'origin':'https://t.bilibili.com',
 	'pragma':'no-cache',
 	'referer':'https://t.bilibili.com/',
