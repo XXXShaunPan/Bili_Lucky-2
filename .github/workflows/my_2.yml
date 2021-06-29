@@ -1,0 +1,105 @@
+name: get_articles_lucky
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  schedule:
+    - cron: "30 23,1,4,7,10,13,15 * * *"
+  watch:
+    types: started
+  workflow_dispatch:
+    inputs:
+      article_id:
+        description: '文章ID'
+        required: false
+        default: ''
+env:
+  Redis_psw: ${{ secrets.Redis_psw }}
+  Redis_IP: ${{ secrets.Redis_IP }}
+  CSRF: ${{ secrets.CSRF }}
+  BILI_COOKIE: ${{ secrets.BILI_COOKIE }}
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: 初始化Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.7
+        
+    - name: pip依赖包
+      run: |
+        pip install -r requirements.txt
+        
+    - name: 开始转发抽奖动态
+#       判断types方式
+      # if: github.event.action != 'started'
+#       直接判断执行条件
+#       if: github.event_name != 'workflow_dispatch'  
+      env:
+        article_id: ${{ github.event.inputs.article_id }}
+      run: |
+        python3 article_choujiang.py >> articles_lucky.log
+      
+#     - name: 获取指定数据
+#       if: github.event_name == 'workflow_dispatch'
+#       env:
+#         date_start: ${{ github.event.inputs.date_start }}
+#         fans_type: ${{ github.event.inputs.fans_type }}
+#       run: |
+#         rm -rf temp/ && mkdir temp
+#         python3 get_fans.py
+#         tar -zcvf temp.tar.gz temp/
+        
+        
+    - name: 上传
+      run: |
+        git config --local user.email "19820637553@163.com"
+        git config --local user.name "XXXShaunPan"
+        git add .
+        git commit -m "`date '+%Y-%m-%d %H:%M:%S'`"
+        git push -u origin main && echo "push ok"
+        
+        
+#     - name: sync github -> gitee
+#       if: success()
+#       uses: Yikun/hub-mirror-action@master  
+# #       if: env.dst_key && env.dst_token && env.gitee_user
+#       with:
+#         # 必选，需要同步的 Github 用户（源）
+#         src: 'github/${{ github.repository_owner }}'
+#         # 必选，需要同步到的 Gitee 用户（目的）
+#         dst: 'gitee/shaunpan'
+#         # 必选，Gitee公钥对应的私钥，https://gitee.com/profile/sshkeys
+#         dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
+#         # 必选，Gitee对应的用于创建仓库的token，https://gitee.com/profile/personal_access_tokens
+#         dst_token:  ${{ secrets.GITEE_TOKEN }}
+#         # 如果是组织，指定组织即可，默认为用户 user
+#         # account_type: org
+#         # 直接取当前项目的仓库名
+#         static_list: ${{ github.event.repository.name }}
+#         # 还有黑、白名单，静态名单机制，可以用于更新某些指定库
+#         # static_list: 'repo_name,repo_name2'
+#         # black_list: 'repo_name,repo_name2'
+#         # white_list: 'repo_name,repo_name2'      
+
+#     - name: 'Send mail'
+#       if: success()
+#       uses: dawidd6/action-send-mail@master
+#       with:
+#         server_address: smtp.qq.com
+#         server_port: 465
+#         username: ${{ secrets.MAIL_USERNAME }}
+#         password: ${{ secrets.MAIL_PASSWORD }}
+#         subject: "bili_fans_ob项目push成功通知"
+#         body: "OB涨掉粉榜爬取完成！"
+#         to: 630077372@qq.com
+#         from: OB_fans
+#         content_type: text/plain
