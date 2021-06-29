@@ -141,17 +141,17 @@ def get_son_lucky_dy(dy_id):
 	res=spider_get(get_son_dy_url(dy_id))['data']['items']
 	print('*****子动态开始*****')
 	for j in res:
-	    i=json.loads(j['card'])
-	    if all([key in i['item']['content'] for key in ['关注','抽','转']]) and '//' not in i['item']['content']:
-	    	son_dy_id=j['desc']['dynamic_id']
-	    	if son_dy_id not in already_dynamic_id:
-	    		get_comment_word(son_dy_id)
-		        to_comment(1,son_dy_id,True)
-		        to_repost(son_dy_id)
-		        to_follow(j['desc']['uid'])
-		        already_dynamic_id.append(son_dy_id)
-		        dynamic_redis.save_dynamic(son_dy_id)
-		        print()
+		i=json.loads(j['card'])
+		if all([key in i['item']['content'] for key in ['关注','抽','转']]) and '//' not in i['item']['content']:
+			son_dy_id=j['desc']['dynamic_id']
+			if son_dy_id not in already_dynamic_id:
+			get_comment_word(son_dy_id)
+			to_comment(1,son_dy_id,True)
+			to_repost(son_dy_id)
+			to_follow(j['desc']['uid'])
+			already_dynamic_id.append(son_dy_id)
+			dynamic_redis.save_dynamic(son_dy_id)
+			print()
 	print("*****子动态结束*****\n\n")
 
 
