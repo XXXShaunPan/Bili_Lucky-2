@@ -139,7 +139,7 @@ def get_uid_oid(dy_id):
 
 def get_son_lucky_dy(dy_id):
 	time.sleep(2)
-	res=spider_get(get_son_dy_url(dy_id))['data']['items']
+	res=rq.get(get_son_dy_url(dy_id),headers=header_noCookie)['data']['items']
 	print('*****子动态开始*****')
 	for j in res:
 		i=json.loads(j['card'])
