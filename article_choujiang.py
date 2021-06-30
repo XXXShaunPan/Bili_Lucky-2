@@ -231,7 +231,7 @@ def main():
 		dys=action()
 	if not dys:
 		print("---开始用户抽奖---")
-		os.system('python3 follow.py')
+		os.system('python3 follow.py >> users_lucky.log')
 		print("---结束用户抽奖---")
 		return
 	for dy_id in dys:
