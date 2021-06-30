@@ -74,6 +74,8 @@ data_thumbsUp={
 	'csrf':csrf,
 }
 
+get_son_dy_url=lambda x:f'https://api.vc.bilibili.com/dynamic_repost/v1/dynamic_repost/repost_detail?dynamic_id={x}'
+
 func = lambda x,y:x if y in x else x + [y]  
 
 def spider_post(url,data1):
