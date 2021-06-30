@@ -177,6 +177,7 @@ def parse_origin_dy(origin):
 
 
 def to_follow(uid):
+	time.sleep(2)
 	data_follow['fid']=uid
 	res=spider_post("https://api.bilibili.com/x/relation/modify",data_follow)
 	if res['code']==0:
@@ -184,7 +185,7 @@ def to_follow(uid):
 	
 
 def to_repost(dynamic_id,type=False):
-	time.sleep(1)
+	time.sleep(3)
 	temp=data_repost['content']
 	data_repost['dynamic_id']=dynamic_id
 	if type:
