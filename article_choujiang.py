@@ -167,7 +167,7 @@ def parse_origin_dy(origin):
 			dynamic_redis.save_dynamic(origin['dynamic_id'])
 			already_dynamic_id.append(origin['dynamic_id'])
 			print("*************原动态处理完成***************")
-			get_son_lucky_dy()
+			get_son_lucky_dy(origin['dynamic_id'])
 			return 1
 		return 0
 	print("*************原动态已存在***************")
