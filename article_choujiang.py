@@ -141,11 +141,11 @@ def get_uid_oid(dy_id):
 
 def get_son_lucky_dy(dy_id):
 	time.sleep(2)
-	res=rq.get(get_son_dy_url(dy_id),headers=header_noCookie)['data']['items']
+	res=rq.get(get_son_dy_url(dy_id),headers=header_noCookie).json()['data']['items']
 	print('*****子动态开始*****')
 	for j in res:
 		i=json.loads(j['card'])
-		if all([key in i['item']['content'] for key in ['关注','抽','转']]) and '//' not in i['item']['content']:
+		if all([key in i['item']['content'] for key in ['关注','抽']]) and '//' not in i['item']['content']:
 			son_dy_id=j['desc']['dynamic_id']
 			if son_dy_id not in already_dynamic_id:		
 				get_comment_word(son_dy_id)
