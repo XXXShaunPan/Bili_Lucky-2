@@ -162,8 +162,9 @@ def main(mid):
 				print(f"\n{per_dynamic['dynamic_id_str']}---转发内容：{poem}---不是抽奖动态")
 				continue
 			# 动态条件过滤
-			data_repost['content']=poem
-			data_comment['message']=poem
+			if poem != "转发动态":
+				data_repost['content']=poem
+				data_comment['message']=poem
 			print("="*30)
 			main_follow_and_post(str(per_dynamic['uid']),per_dynamic['dynamic_id_str'],per_dynamic['rid_str'])
 			already_dynamic_id.append(per_dynamic['dynamic_id_str'])
