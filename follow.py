@@ -162,7 +162,7 @@ def main(mid):
 				print(f"\n{per_dynamic['dynamic_id_str']}---转发内容：{poem}---不是抽奖动态")
 				continue
 			# 动态条件过滤
-			if poem != "转发动态":
+			if poem != "转发动态" and '感兴趣的抽' not in poem:
 				data_repost['content']=poem
 				data_comment['message']=poem
 			print("="*30)
