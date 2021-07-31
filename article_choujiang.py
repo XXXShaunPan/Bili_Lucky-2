@@ -211,6 +211,7 @@ def to_comment(oid,dy_id,not_origin,type=0):
 	if type==8:
 		data_comment.update({"oid":oid,'type':'1','ordering': 'heat'})
 	res=spider_post("https://api.bilibili.com/x/v2/reply/add",data_comment)
+	print('开始评论')
 	print("评论"+res['data']['success_toast'])
 	return res['data']['success_toast']
 
@@ -255,6 +256,7 @@ def main():
 				print('*#*#*#*#*#*#*#*#*#*原动态处理失败*#*#*#*#*#*#*#*#*#')
 				continue
 			uid,oid,uname,not_origin=result
+			print('开始评论+转发')
 			if to_comment(oid,dy_id,not_origin) and to_repost(dy_id):
 				to_follow(uid)	
 				# to_thumbsUp(dy_id)
