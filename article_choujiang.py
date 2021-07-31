@@ -239,34 +239,34 @@ def main():
 		print("---结束用户抽奖---")
 		return
 	for dy_id in dys:
-		try:
-			print('https://t.bilibili.com/',dy_id)
-			if dy_id in already_dynamic_id:
-				print("已有")
-				continue
-			get_comment_word(dy_id)
-			result=get_uid_oid(dy_id)
-			if result==1: # 到官方抽奖了
-				official_list.append(dy_id)
-				print("官方抽奖")
-				if len(official_list)>5:
-					break
-				continue
-			if not result:
-				print('*#*#*#*#*#*#*#*#*#*原动态处理失败*#*#*#*#*#*#*#*#*#')
-				continue
-			uid,oid,uname,not_origin=result
-			print('开始评论+转发')
-			if to_comment(oid,dy_id,not_origin) and to_repost(dy_id):
-				to_follow(uid)	
-				# to_thumbsUp(dy_id)
-				print(uname+"\n\n")
-				already_dynamic_id.append(dy_id)
-				today_list.append(dy_id)
-				dynamic_redis.save_dynamic(dy_id)
-			time.sleep(random.randint(6,11))
-		except Exception as e:
-			print(e)
+# 		try:
+		print('https://t.bilibili.com/',dy_id)
+		if dy_id in already_dynamic_id:
+			print("已有")
+			continue
+		get_comment_word(dy_id)
+		result=get_uid_oid(dy_id)
+		if result==1: # 到官方抽奖了
+			official_list.append(dy_id)
+			print("官方抽奖")
+			if len(official_list)>5:
+				break
+			continue
+		if not result:
+			print('*#*#*#*#*#*#*#*#*#*原动态处理失败*#*#*#*#*#*#*#*#*#')
+			continue
+		uid,oid,uname,not_origin=result
+		print('开始评论+转发')
+		if to_comment(oid,dy_id,not_origin) and to_repost(dy_id):
+			to_follow(uid)	
+			# to_thumbsUp(dy_id)
+			print(uname+"\n\n")
+			already_dynamic_id.append(dy_id)
+			today_list.append(dy_id)
+			dynamic_redis.save_dynamic(dy_id)
+		time.sleep(random.randint(6,11))
+# 		except Exception as e:
+# 			print(e)
 
 
 already_dynamic_id=check_dynamic_id()
