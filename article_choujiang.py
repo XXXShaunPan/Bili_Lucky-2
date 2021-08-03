@@ -212,7 +212,7 @@ def to_comment(oid,dy_id,not_origin,type=0):
 		data_comment.update({"oid":oid,'type':'1','ordering': 'heat'})
 	res=spider_post("https://api.bilibili.com/x/v2/reply/add",data_comment)
 	print('开始评论')
-	print("评论"+res)
+	print(res)
 	return res['data']['success_toast']
 
 
