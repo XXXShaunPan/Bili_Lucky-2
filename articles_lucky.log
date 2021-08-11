@@ -24235,3 +24235,76 @@ https://t.bilibili.com/ 557179304088353259?tab
 https://t.bilibili.com/ 556970594449870609?tab
 官方抽奖
 ===============2021-08-11 15:47===============
+
+
+===============2021-08-11 18:41===============
+12602405
+https://t.bilibili.com/ 556124958337103057?tab
+已有
+https://t.bilibili.com/ 555329002112940810?tab
+开始评论+转发
+开始评论
+{'code': 0, 'message': '0', 'ttl': 1, 'data': {'success_action': 0, 'success_toast': '发送成功', 'need_captcha': False, 'need_captcha_v2': False, 'url': '', 'url_v2': '', 'rpid': 5130653301, 'rpid_str': '5130653301', 'dialog': 0, 'dialog_str': '0', 'root': 0, 'root_str': '0', 'parent': 0, 'parent_str': '0', 'reply': {'rpid': 5130653301, 'oid': 156602818, 'type': 11, 'mid': 1090970340, 'root': 0, 'parent': 0, 'dialog': 0, 'count': 0, 'rcount': 0, 'state': 0, 'fansgrade': 0, 'attr': 0, 'ctime': 1628678521, 'rpid_str': '5130653301', 'root_str': '0', 'parent_str': '0', 'like': 0, 'action': 0, 'member': {'mid': '1090970340', 'uname': '小小Shaun', 'sex': '女', 'sign': '时刻怀有一颗有爱的心~', 'avatar': 'http://i0.hdslb.com/bfs/face/029499cd7a63726dc787546422d1c0b1283ae727.jpg', 'rank': '10000', 'DisplayRank': '0', 'level_info': {'current_level': 2, 'current_min': 0, 'current_exp': 0, 'next_exp': 0}, 'pendant': {'pid': 0, 'name': '', 'image': '', 'expire': 0, 'image_enhance': '', 'image_enhance_frame': ''}, 'nameplate': {'nid': 0, 'name': '', 'image': '', 'image_small': '', 'level': '', 'condition': ''}, 'official_verify': {'type': -1, 'desc': ''}, 'vip': {'vipType': 1, 'vipDueDate': 1627056000000, 'dueRemark': '', 'accessStatus': 0, 'vipStatus': 0, 'vipStatusWarn': '', 'themeType': 0, 'label': {'path': '', 'text': '', 'label_theme': '', 'text_color': '', 'bg_style': 0, 'bg_color': '', 'border_color': ''}, 'avatar_subscript': 0, 'nickname_color': ''}, 'fans_detail': None, 'following': 0, 'is_followed': 0, 'user_sailing': {'pendant': None, 'cardbg': None, 'cardbg_with_focus': None}, 'is_contractor': False}, 'content': {'message': '沧浪之水啊', 'plat': 1, 'device': '', 'members': [], 'jump_url': {}, 'max_line': 999}, 'replies': None, 'assist': 0, 'folder': {'has_folded': False, 'is_folded': False, 'rule': 'https://www.bilibili.com/blackboard/foldingreply.html'}, 'up_action': {'like': False, 'reply': False}, 'show_follow': False, 'invisible': False, 'reply_control': {'sub_reply_entry_text': '共0条回复', 'sub_reply_title_text': '相关回复共0条'}}}}
+转发成功
+关注成功 ==== 472727109
+新经典THINKINGDOM
+
+
+https://t.bilibili.com/ 555445743615980882?tab
+开始评论+转发
+开始评论
+{'code': 12015, 'message': '验证码错误未到不能评论', 'ttl': 1, 'data': {'success_action': 0, 'success_toast': '', 'need_captcha': True, 'need_captcha_v2': True, 'url': 'https://api.bilibili.com/x/v1/captcha/get?bid=reply&token=ff2b75e01b0a4e6e8696e0f7300ea785', 'url_v2': 'https://www.bilibili.com/web-fission/captcha?biz=reply', 'rpid': 0, 'rpid_str': '', 'dialog': 0, 'dialog_str': '', 'root': 0, 'root_str': '', 'parent': 0, 'parent_str': '', 'reply': None}}
+https://t.bilibili.com/ 555385979145449044?tab
+开始评论+转发
+开始评论
+{'code': 12015, 'message': '验证码错误未到不能评论', 'ttl': 1, 'data': {'success_action': 0, 'success_toast': '', 'need_captcha': True, 'need_captcha_v2': True, 'url': 'https://api.bilibili.com/x/v1/captcha/get?bid=reply&token=21d96e61681d4353aeba58110a2bae8a', 'url_v2': 'https://www.bilibili.com/web-fission/captcha?biz=reply', 'rpid': 0, 'rpid_str': '', 'dialog': 0, 'dialog_str': '', 'root': 0, 'root_str': '', 'parent': 0, 'parent_str': '', 'reply': None}}
+https://t.bilibili.com/ 555377470816203118?tab
+开始评论+转发
+开始评论
+{'code': 12015, 'message': '验证码错误未到不能评论', 'ttl': 1, 'data': {'success_action': 0, 'success_toast': '', 'need_captcha': True, 'need_captcha_v2': True, 'url': 'https://api.bilibili.com/x/v1/captcha/get?bid=reply&token=5b54f7334c2f4bff8d0e2cbbd5d66852', 'url_v2': 'https://www.bilibili.com/web-fission/captcha?biz=reply', 'rpid': 0, 'rpid_str': '', 'dialog': 0, 'dialog_str': '', 'root': 0, 'root_str': '', 'parent': 0, 'parent_str': '', 'reply': None}}
+https://t.bilibili.com/ 553225404436854061?tab
+开始评论+转发
+开始评论
+{'code': 12015, 'message': '验证码错误未到不能评论', 'ttl': 1, 'data': {'success_action': 0, 'success_toast': '', 'need_captcha': True, 'need_captcha_v2': True, 'url': 'https://api.bilibili.com/x/v1/captcha/get?bid=reply&token=1c90559bf2764b6594a48053b0e2b86a', 'url_v2': 'https://www.bilibili.com/web-fission/captcha?biz=reply', 'rpid': 0, 'rpid_str': '', 'dialog': 0, 'dialog_str': '', 'root': 0, 'root_str': '', 'parent': 0, 'parent_str': '', 'reply': None}}
+https://t.bilibili.com/ 551601511661595931?tab
+*************原动态处理开始***************
+'orig_dy_id'
+https://t.bilibili.com/ 551607941232917581?tab
+*************原动态处理开始***************
+开始评论
+{'code': 12015, 'message': '验证码错误未到不能评论', 'ttl': 1, 'data': {'success_action': 0, 'success_toast': '', 'need_captcha': True, 'need_captcha_v2': True, 'url': 'https://api.bilibili.com/x/v1/captcha/get?bid=reply&token=ef4dfb3bb44a464d8c4dc7d0d17b9e4a', 'url_v2': 'https://www.bilibili.com/web-fission/captcha?biz=reply', 'rpid': 0, 'rpid_str': '', 'dialog': 0, 'dialog_str': '', 'root': 0, 'root_str': '', 'parent': 0, 'parent_str': '', 'reply': None}}
+*#*#*#*#*#*#*#*#*#*原动态处理失败*#*#*#*#*#*#*#*#*#
+https://t.bilibili.com/ 551592646849051019?tab
+*************原动态处理开始***************
+开始评论
+{'code': 12015, 'message': '验证码错误未到不能评论', 'ttl': 1, 'data': {'success_action': 0, 'success_toast': '', 'need_captcha': True, 'need_captcha_v2': False, 'url': 'https://api.bilibili.com/x/v1/captcha/get?bid=reply&token=eeaae2cfde9a46ff81e7c6879c447933', 'url_v2': '', 'rpid': 0, 'rpid_str': '', 'dialog': 0, 'dialog_str': '', 'root': 0, 'root_str': '', 'parent': 0, 'parent_str': '', 'reply': None}}
+*#*#*#*#*#*#*#*#*#*原动态处理失败*#*#*#*#*#*#*#*#*#
+https://t.bilibili.com/ 550560922694338450?tab
+*************原动态处理开始***************
+'orig_dy_id'
+https://t.bilibili.com/ 552416163880214353?tab
+*************原动态处理开始***************
+'orig_dy_id'
+https://t.bilibili.com/ 552346714259528008?tab
+*************原动态处理开始***************
+开始评论
+{'code': 12015, 'message': '验证码错误未到不能评论', 'ttl': 1, 'data': {'success_action': 0, 'success_toast': '', 'need_captcha': True, 'need_captcha_v2': True, 'url': 'https://api.bilibili.com/x/v1/captcha/get?bid=reply&token=bd91971b378d4bbd9d9ac3445298b170', 'url_v2': 'https://www.bilibili.com/web-fission/captcha?biz=reply', 'rpid': 0, 'rpid_str': '', 'dialog': 0, 'dialog_str': '', 'root': 0, 'root_str': '', 'parent': 0, 'parent_str': '', 'reply': None}}
+*#*#*#*#*#*#*#*#*#*原动态处理失败*#*#*#*#*#*#*#*#*#
+https://t.bilibili.com/ 552355656380445825?tab
+*************原动态处理开始***************
+开始评论
+{'code': 12015, 'message': '验证码错误未到不能评论', 'ttl': 1, 'data': {'success_action': 0, 'success_toast': '', 'need_captcha': True, 'need_captcha_v2': True, 'url': 'https://api.bilibili.com/x/v1/captcha/get?bid=reply&token=790eadc953744a3f828bcda54558875f', 'url_v2': 'https://www.bilibili.com/web-fission/captcha?biz=reply', 'rpid': 0, 'rpid_str': '', 'dialog': 0, 'dialog_str': '', 'root': 0, 'root_str': '', 'parent': 0, 'parent_str': '', 'reply': None}}
+*#*#*#*#*#*#*#*#*#*原动态处理失败*#*#*#*#*#*#*#*#*#
+https://t.bilibili.com/ 553145792921332793?tab
+官方抽奖
+https://t.bilibili.com/ 556425348350479654?tab
+官方抽奖
+https://t.bilibili.com/ 555390712204697990?tab
+官方抽奖
+https://t.bilibili.com/ 555371797161209635?tab
+官方抽奖
+https://t.bilibili.com/ 555411340931763069?tab
+官方抽奖
+https://t.bilibili.com/ 555405259253816644?tab
+官方抽奖
+===============2021-08-11 18:43===============
