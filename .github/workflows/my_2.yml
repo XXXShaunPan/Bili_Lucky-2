@@ -20,6 +20,8 @@ env:
   Redis_IP: ${{ secrets.Redis_IP }}
   CSRF: ${{ secrets.CSRF }}
   BILI_COOKIE: ${{ secrets.BILI_COOKIE }}
+  UIDS: ${{ secrets.UIDS }}
+  Artice_Uid: ${{ secrets.Artice_Uid }}
   
 jobs:
   build:
