@@ -163,7 +163,7 @@ def get_son_lucky_dy(dy_id):
 def parse_origin_dy(origin):
 	if origin['dynamic_id'] not in already_dynamic_id:
 		print("*************原动态处理开始***************")
-		if to_comment(origin['rid'],origin['dynamic_id'],origin['orig_dy_id'],origin['type']):
+		if to_comment(origin['rid'],origin['dynamic_id'],int(origin['orig_dy_id_str']),origin['type']):
 			to_follow(origin['uid'])
 			to_thumbsUp(origin['dynamic_id'])
 			# if origin['type']!=8:
