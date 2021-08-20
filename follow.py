@@ -4,7 +4,7 @@ import random,time,dynamic_redis
 import json,os
 from time import strftime, localtime
 #628290540 #
-mids=[382447165,1938824,386037883,695554003,670582019,1814607988,427535591,1261444445,241675899,1161955340,487657530,481705501,693517324,483064954]	# 受害用户的ID（获取抽奖动态）
+mids=eval(os.environ["UIDS"])
 csrf=os.environ["CSRF"]
 key_list=['抽','奖','送']
 header={
