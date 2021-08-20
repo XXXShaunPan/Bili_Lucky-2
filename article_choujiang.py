@@ -11,6 +11,8 @@ csrf=os.environ["CSRF"]
 
 article_id=os.environ["article_id"]
 
+article_uid=os.environ["Artice_Uid"]
+
 today=datetime.now(timezone('Asia/Shanghai')).strftime('%Y-%m-%d')
 today_filename=datetime.now(timezone('Asia/Shanghai')).strftime('%Y-%m-%d=%H')
 
@@ -109,7 +111,7 @@ def order_dy_type(dy_id):	# 检查官方与非官方的顺序
 
 def action():
 	article_id=''
-	articles=rq.get("https://api.bilibili.com/x/space/article?mid=226257459&pn=1&ps=12&sort=publish_time",headers=header_noCookie).json()['data']['articles']
+	articles=rq.get(f"https://api.bilibili.com/x/space/article?mid={article_uid}&pn=1&ps=12&sort=publish_time",headers=header_noCookie).json()['data']['articles']
 	for i in articles:
 		if "抽奖" in i['title'] and time.strftime('%Y-%m-%d',time.localtime(i['publish_time']))==today:
 			print(i['id'])
