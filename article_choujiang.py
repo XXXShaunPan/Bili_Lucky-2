@@ -213,8 +213,7 @@ def to_comment(oid,dy_id,not_origin,type=0):
 	if type==8:
 		data_comment.update({"oid":oid,'type':'1','ordering': 'heat'})
 	res=spider_post("https://api.bilibili.com/x/v2/reply/add",data_comment)
-	print('开始评论')
-	print(res)
+	print('评论'+res['data']['success_toast'])
 	return res['data']['success_toast']
 
 
