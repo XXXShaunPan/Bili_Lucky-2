@@ -138,7 +138,7 @@ def get_uid_oid(dy_id):
 	if 'origin' in keys.keys():
 		if not parse_origin_dy(keys['origin']):
 			return 0
-	return keys['uid'],keys['rid'],keys['user_profile']['info']['uname'], keys['orig_dy_id']
+	return keys['uid'],keys['rid'],keys['user_profile']['info']['uname'], int(keys['orig_dy_id_str'])
 
 
 def get_son_lucky_dy(dy_id):
