@@ -1,10 +1,10 @@
 import redis
 import os
 
-# Redis_psw=os.environ["Redis_psw"]
-# Redis_IP=os.environ["Redis_IP"]
+Redis_psw=os.environ["Redis_psw"]
+Redis_IP=os.environ["Redis_IP"]
 
-# rd=redis.Redis(host=Redis_IP, port=6379, db=0, password=Redis_psw)
+rd=redis.Redis(host=Redis_IP, port=6379, db=0, password=Redis_psw)
 
 
 def save_dynamic(dynamic_id,filename='dy_id2.txt'):
