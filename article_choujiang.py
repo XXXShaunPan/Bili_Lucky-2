@@ -91,7 +91,7 @@ def parse_article_get_dy(article_id):
 		return []
 	res=rq.get(f'https://www.bilibili.com/read/cv{article_id}',headers=header_noCookie).text
 
-	result=re.findall('https://t.bilibili.com/([0-9]+.tab)',res)
+	result=re.findall('https://t.bilibili.com/([0-9]+).tab',res)
 
 	result = reduce(func,[[]]+result)
 
