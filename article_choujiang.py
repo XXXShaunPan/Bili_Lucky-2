@@ -124,7 +124,7 @@ def action():
 def get_comment_word(dy_id):
 	repost_detail=rq.get(f'https://api.vc.bilibili.com/dynamic_repost/v1/dynamic_repost/repost_detail?dynamic_id={dy_id}').json()
 	word=json.loads(repost_detail['data']['items'][-1]['card'])['item']['content']
-	data_comment['message']=word.split('//')[0]
+	data_comment['message']=word.split('//')[0] if word.split('//')[0] else '来了'
 	data_repost['content']=word  
 
 
