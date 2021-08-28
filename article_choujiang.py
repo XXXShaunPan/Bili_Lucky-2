@@ -156,6 +156,7 @@ def get_son_lucky_dy(dy_id):
 			if son_dy_id not in already_dynamic_id:	
 				get_comment_word(son_dy_id)
 				if to_comment(1,son_dy_id,True):
+					print(son_dy_id)
 					to_repost(son_dy_id)
 					to_follow(j['desc']['uid'])
 					already_dynamic_id.append(son_dy_id)
