@@ -11,7 +11,7 @@ csrf=os.environ["CSRF"]
 
 article_id=os.environ["article_id"]
 
-article_uid=os.environ["Artice_Uid"]
+article_uid=eval(os.environ["Artice_Uid"])
 
 today=datetime.now(timezone('Asia/Shanghai')).strftime('%Y-%m-%d')
 today_filename=datetime.now(timezone('Asia/Shanghai')).strftime('%Y-%m-%d=%H')
@@ -109,9 +109,9 @@ def order_dy_type(dy_id):	# 检查官方与非官方的顺序
 	return 'extension' in res.keys()
 
 
-def action():
+def action(uid):
 	article_id=''
-	articles=rq.get(f"https://api.bilibili.com/x/space/article?mid={article_uid}&pn=1&ps=12&sort=publish_time",headers=header_noCookie).json()['data']['articles']
+	articles=rq.get(f"https://api.bilibili.com/x/space/article?mid={uid}&pn=1&ps=12&sort=publish_time",headers=header_noCookie).json()['data']['articles']
 	for i in articles:
 		if "抽奖" in i['title'] and time.strftime('%Y-%m-%d',time.localtime(i['publish_time']))==today:
 			print(i['id'])
@@ -230,11 +230,11 @@ def check_dynamic_id():
 	return dynamic_redis.get_dynamic()
 
 
-def main():
+def main(uid):
 	if article_id:
 		dys=parse_article_get_dy(article_id)
 	else:
-		dys=action()
+		dys=action(uid)
 	if not dys:
 		print("---开始用户抽奖---")
 # 		os.system('python3 follow.py >> users_lucky.log')
@@ -274,7 +274,8 @@ def main():
 already_dynamic_id=check_dynamic_id()
 if __name__ == '__main__':
 	print("\n\n==============="+datetime.now(timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M')+"===============")
-	main()
+	for i in article_uid:
+		main(i)
 	print("==============="+datetime.now(timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M')+"===============")
 	if today_list:
 		with open(f'List/{today_filename}.txt', 'w') as f:
