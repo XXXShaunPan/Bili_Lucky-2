@@ -113,7 +113,7 @@ def action(uid):
 	article_id=''
 	articles=rq.get(f"https://api.bilibili.com/x/space/article?mid={uid}&pn=1&ps=12&sort=publish_time",headers=header_noCookie).json()['data']['articles']
 	for i in articles:
-		if "抽奖" in i['title'] and time.strftime('%Y-%m-%d',time.localtime(i['publish_time']))==today:
+		if time.strftime('%Y-%m-%d',time.localtime(i['publish_time']))==today:
 			print(i['id'])
 			article_id=i['id']
 			break
