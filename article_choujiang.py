@@ -273,10 +273,10 @@ def main(uid):
 
 already_dynamic_id=check_dynamic_id()
 if __name__ == '__main__':
-	print("\n\n==============="+datetime.now(timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M')+"===============")
+	print("\n\n=================================================="+datetime.now(timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M')+"==================================================")
 	for i in article_uid:
 		main(i)
-	print("==============="+datetime.now(timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M')+"===============")
+	print("=================================================="+datetime.now(timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M')+"==================================================")
 	if today_list:
 		with open(f'List/{today_filename}.txt', 'w') as f:
 			f.write('=='.join(today_list))
