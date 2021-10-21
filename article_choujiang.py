@@ -275,6 +275,7 @@ already_dynamic_id=check_dynamic_id()
 if __name__ == '__main__':
 	print("\n\n=================================================="+datetime.now(timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M')+"==================================================")
 	for i in article_uid:
+		print('*'*20+'大锦鲤' if i=='226257459' else '胖头鱼')
 		main(i)
 	print("=================================================="+datetime.now(timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M')+"==================================================")
 	if today_list:
