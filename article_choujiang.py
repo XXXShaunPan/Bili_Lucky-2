@@ -111,12 +111,15 @@ def order_dy_type(dy_id):	# 检查官方与非官方的顺序
 
 def action(uid):
 	article_id=''
-	articles=rq.get(f"https://api.bilibili.com/x/space/article?mid={uid}&pn=1&ps=12&sort=publish_time",headers=header_noCookie).json()['data']['articles']
-	for i in articles:
-		if time.strftime('%Y-%m-%d',time.localtime(i['publish_time']))==today:
-			print(i['id'])
-			article_id=i['id']
-			break
+	try:
+		articles=rq.get(f"https://api.bilibili.com/x/space/article?mid={uid}&pn=1&ps=12&sort=publish_time",headers=header_noCookie).json()['data']['articles']
+		for i in articles:
+			if time.strftime('%Y-%m-%d',time.localtime(i['publish_time']))==today:
+				print(i['id'])
+				article_id=i['id']
+				break
+	except:
+		pass
 	# article_id=articles[1]['id']
 	return parse_article_get_dy(article_id)
 
