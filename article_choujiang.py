@@ -9,6 +9,8 @@ from pytz import timezone
 
 csrf=os.environ["CSRF"]
 
+is_get_son_dy=True
+
 article_id=os.environ["article_id"]
 
 article_uid=eval(os.environ["Artice_Uid"])
@@ -92,13 +94,15 @@ def parse_article_get_dy(article_id):
 	res=rq.get(f'https://www.bilibili.com/read/cv{article_id}',headers=header_noCookie).text
 
 	result=re.findall('https://t.bilibili.com/([0-9]+).tab',res)
+	b23_list=re.findall('href="https://b23.tv/(.+?)">',res)
+	b23_list=list(set(b23_list))
+# 	result = reduce(func,[[]]+result+b23_list)
+	b23_list=transform_to_dy_id(b23_list)
+# 	return parse_dynamic_order(result)
+	return result+b23_list
 
-	result = reduce(func,[[]]+result)
 
-	return parse_dynamic(result)
-
-
-def parse_dynamic(result):
+def parse_dynamic_order(result):
 	if order_dy_type(result[2]):
 		result.reverse()
 	return result
@@ -107,6 +111,19 @@ def parse_dynamic(result):
 def order_dy_type(dy_id):	# 检查官方与非官方的顺序
 	res=rq.get(f"https://api.vc.bilibili.com/dynamic_svr/v1/dynamic_svr/get_dynamic_detail?dynamic_id={dy_id}",headers=header_noCookie).json()['data']['card']
 	return 'extension' in res.keys()
+
+
+def transform_to_dy_id(b23_list):	# https://b23.tv/vLj7KNq
+	if not b23_list:
+		return []
+	ids=[]
+	for url in b23_list:
+		time.sleep(0.2)
+		response = rq.get("https://b23.tv/"+url)
+		url1=response.history[0].headers['Location']
+		id=re.findall(r".*dynamic/([0-9]*)\?.*",url1)
+		ids.append(id)
+	return ids
 
 
 def action(uid):
@@ -179,7 +196,8 @@ def parse_origin_dy(origin):
 			dynamic_redis.save_dynamic(origin['dynamic_id'])
 			already_dynamic_id.append(origin['dynamic_id'])
 			print("*************原动态处理完成***************")
-			get_son_lucky_dy(origin['dynamic_id'])
+			if is_get_son_dy:
+				get_son_lucky_dy(origin['dynamic_id'])
 			return 1
 		return 0
 	print("*************原动态已存在***************")
@@ -243,6 +261,8 @@ def main(uid):
 # 		os.system('python3 follow.py >> users_lucky.log')
 		print("---结束用户抽奖---")
 		return
+	if uid=="73773270":
+		is_get_son_dy=False
 	for dy_id in dys:
 		try:
 			print('https://t.bilibili.com/',dy_id)
