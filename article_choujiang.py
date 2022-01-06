@@ -251,18 +251,12 @@ def check_dynamic_id():
 	return dynamic_redis.get_dynamic()
 
 
-def main(uid):
-	if article_id:
-		dys=parse_article_get_dy(article_id)
-	else:
-		dys=action(uid)
+def main(dys):
 	if not dys:
 		print("---开始用户抽奖---")
 # 		os.system('python3 follow.py >> users_lucky.log')
 		print("---结束用户抽奖---")
 		return
-	if uid=="73773270":
-		is_get_son_dy=False
 	for dy_id in dys:
 		try:
 			print('https://t.bilibili.com/',dy_id)
@@ -271,10 +265,10 @@ def main(uid):
 				continue
 			result=get_uid_oid(dy_id)
 			if result==1: # 到官方抽奖了
-				official_list.append(dy_id)
+# 				official_list.append(dy_id)
 				print("官方抽奖")
-				if len(official_list)>5:
-					break
+# 				if len(official_list)>5:
+# 					break
 				continue
 			if not result:
 				print('*#*#*#*#*#*#*#*#*#*原动态处理失败*#*#*#*#*#*#*#*#*#')
@@ -293,13 +287,25 @@ def main(uid):
 		except Exception as e:
 			print(e)
 
+			
+def pre_man():
+	if article_id:
+		dys=parse_article_get_dy(article_id)
+		main(dys)
+		return
+	for i in article_uid:
+		if i=="73773270":
+			is_get_son_dy=False
+		else:
+			is_get_son_dy=True
+		main(action(i))
+
+
 
 already_dynamic_id=check_dynamic_id()
 if __name__ == '__main__':
 	print("\n\n=================================================="+datetime.now(timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M')+"==================================================")
-	for i in article_uid:
-		print('*'*20+'大锦鲤' if i=='226257459' else '胖头鱼')
-		main(i)
+	pre_man()
 	print("=================================================="+datetime.now(timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M')+"==================================================")
 	if today_list:
 		with open(f'List/{today_filename}.txt', 'w') as f:
