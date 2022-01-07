@@ -174,7 +174,8 @@ def get_son_lucky_dy(dy_id):
 	print('*****子动态开始*****')
 	for j in res:
 		i=json.loads(j['card'])
-		if all([key in i['item']['content'] for key in ['关注','抽']]) and '//' not in i['item']['content']:
+		if all([key in i['item']['content'] for key in ['关注','抽']]) and j['desc']['user_profile']['card']['official_verify']['type']==1:
+# 		if all([key in i['item']['content'] for key in ['关注','抽']]) and '//' not in i['item']['content']:
 			son_dy_id=j['desc']['dynamic_id']
 			if son_dy_id not in already_dynamic_id:	
 				get_comment_word(son_dy_id)
