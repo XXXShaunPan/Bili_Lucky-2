@@ -119,10 +119,13 @@ def transform_to_dy_id(b23_list):	# https://b23.tv/vLj7KNq
 	ids=[]
 	for url in b23_list:
 		time.sleep(0.2)
-		response = rq.get("https://b23.tv/"+url)
-		url1=response.history[0].headers['Location']
-		id=re.findall(r".*dynamic/([0-9]*)\?.*",url1)
-		ids.append(id[0])
+		try:
+			response = rq.get("https://b23.tv/"+url)
+			url1=response.history[0].headers['Location']
+			id=re.findall(r".*dynamic/([0-9]*)\?.*",url1)
+			ids.append(id[0])
+		except:
+			pass
 	return ids
 
 
