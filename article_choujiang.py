@@ -176,11 +176,10 @@ def get_son_lucky_dy(dy_id):
 		i=json.loads(j['card'])
 		if all([key in i['item']['content'] for key in ['关注','抽']]) and j['desc']['user_profile']['card']['official_verify']['type']==1:
 # 		if all([key in i['item']['content'] for key in ['关注','抽']]) and '//' not in i['item']['content']:
-			son_dy_id=j['desc']['dynamic_id']
+			son_dy_id=j['desc']['dynamic_id_str']
 			if son_dy_id not in already_dynamic_id:	
 				get_comment_word(son_dy_id)
 				if to_comment(1,son_dy_id,True):
-					print(son_dy_id)
 					to_repost(son_dy_id)
 					to_follow(j['desc']['uid'])
 					already_dynamic_id.append(son_dy_id)
@@ -190,15 +189,15 @@ def get_son_lucky_dy(dy_id):
 
 
 def parse_origin_dy(origin):
-	if origin['dynamic_id'] not in already_dynamic_id:
+	if origin['dynamic_id_str'] not in already_dynamic_id:
 		print("*************原动态处理开始***************")
 		if to_comment(origin['rid'],origin['dynamic_id'],int(origin['orig_dy_id_str']),origin['type']):
 			to_follow(origin['uid'])
 			to_thumbsUp(origin['dynamic_id'])
 			# if origin['type']!=8:
 			# 	to_repost(origin['dynamic_id'],True)
-			dynamic_redis.save_dynamic(origin['dynamic_id'])
-			already_dynamic_id.append(origin['dynamic_id'])
+			dynamic_redis.save_dynamic(origin['dynamic_id_str'])
+			already_dynamic_id.append(origin['dynamic_id_str'])
 			print("*************原动态处理完成***************")
 			if is_get_son_dy:
 				get_son_lucky_dy(origin['dynamic_id'])
