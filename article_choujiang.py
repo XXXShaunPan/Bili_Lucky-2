@@ -79,7 +79,7 @@ data_thumbsUp={
 get_son_dy_url=lambda x:f'https://api.vc.bilibili.com/dynamic_repost/v1/dynamic_repost/repost_detail?dynamic_id={x}'
 
 func = lambda x,y:x if y in x else x + [y]  
-
+article_ids=dynamic_redis.get_dynamic('article_id.txt')
 def spider_post(url,data1):
 	# asyncio.sleep(3)
 	res=rq.post(url,headers=header,data=data1)
@@ -92,7 +92,7 @@ def parse_article_get_dy(article_id):
 	if not article_id:
 		return []
 	res=rq.get(f'https://www.bilibili.com/read/cv{article_id}',headers=header_noCookie).text
-
+	dynamic_redis.save_dynamic(article_id,'article_id.txt')
 	result=list(set(re.findall('https://t.bilibili.com/([0-9]{18})',res)))
 	b23_list=re.findall('href="https://b23.tv/(.+?)">',res)
 	b23_list=list(set(b23_list))
@@ -134,7 +134,7 @@ def action(uid):
 	try:
 		articles=rq.get(f"https://api.bilibili.com/x/space/article?mid={uid}&pn=1&ps=12&sort=publish_time",headers=header_noCookie).json()['data']['articles']
 		for i in articles:
-			if time.strftime('%Y-%m-%d',time.localtime(i['publish_time']))==today:
+			if i['id'] not in article_ids:
 				print(i['id'])
 				article_id=i['id']
 				break
