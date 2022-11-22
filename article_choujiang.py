@@ -158,7 +158,7 @@ def get_uid_oid(dy_id):
 	res=rq.get(f"https://api.vc.bilibili.com/dynamic_svr/v1/dynamic_svr/get_dynamic_detail?dynamic_id={dy_id}",headers=header_noCookie).json()
 	keys=res['data']['card']['desc']
 
-	if 'extension' in res['data']['card'].keys():
+	if 'extension' in res['data']['card'].keys() or 'add_on_card_info' in res['data']['card']['display'].keys():
 		return 1
 	# print(keys)
 	if 'origin' in keys.keys():
@@ -269,7 +269,7 @@ def main(dys):
 			result=get_uid_oid(dy_id)
 			if result==1: # 到官方抽奖了
 # 				official_list.append(dy_id)
-				print("官方抽奖")
+				print("官方抽奖 或 预约抽奖")
 # 				if len(official_list)>5:
 # 					break
 				continue
