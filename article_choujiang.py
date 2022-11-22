@@ -9,8 +9,6 @@ from pytz import timezone
 
 csrf=os.environ["CSRF"]
 
-is_get_son_dy=True
-
 article_id=os.environ["article_id"]
 
 article_uid=eval(os.environ["Artice_Uid"])
@@ -19,7 +17,7 @@ today=datetime.now(timezone('Asia/Shanghai')).strftime('%Y-%m-%d')
 today_filename=datetime.now(timezone('Asia/Shanghai')).strftime('%Y-%m-%d=%H')
 
 official_list=[]
-today_list=[]
+# today_list=[]
 
 header={
 	'content-type':'application/x-www-form-urlencoded',
@@ -199,8 +197,7 @@ def parse_origin_dy(origin):
 			dynamic_redis.save_dynamic(origin['dynamic_id_str'])
 			already_dynamic_id.append(origin['dynamic_id_str'])
 			print("*************原动态处理完成***************")
-			if is_get_son_dy:
-				get_son_lucky_dy(origin['dynamic_id'])
+			get_son_lucky_dy(origin['dynamic_id'])
 			return 1
 		return 0
 	print("*************原动态已存在***************")
@@ -268,6 +265,7 @@ def main(dys):
 				continue
 			result=get_uid_oid(dy_id)
 			if result==1: # 到官方抽奖了
+				get_son_lucky_dy(dy_id)
 # 				official_list.append(dy_id)
 				print("官方抽奖 或 预约抽奖")
 # 				if len(official_list)>5:
@@ -284,7 +282,7 @@ def main(dys):
 					# to_thumbsUp(dy_id)
 					print(uname+"\n\n")
 					already_dynamic_id.append(dy_id)
-					today_list.append(dy_id)
+# 					today_list.append(dy_id)
 					dynamic_redis.save_dynamic(dy_id)
 			time.sleep(random.randint(6,11))
 		except Exception as e:
@@ -297,10 +295,6 @@ def pre_man():
 		main(dys)
 		return
 	for i in article_uid:
-		if i=="73773270":
-			is_get_son_dy=False
-		else:
-			is_get_son_dy=True
 		main(action(i))
 
 
@@ -310,6 +304,6 @@ if __name__ == '__main__':
 	print("\n\n=================================================="+datetime.now(timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M')+"==================================================")
 	pre_man()
 	print("=================================================="+datetime.now(timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M')+"==================================================")
-	if today_list:
-		with open(f'List/{today_filename}.txt', 'w') as f:
-			f.write('=='.join(today_list))
+# 	if today_list:
+# 		with open(f'List/{today_filename}.txt', 'w') as f:
+# 			f.write('=='.join(today_list))
