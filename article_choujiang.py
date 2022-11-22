@@ -86,6 +86,8 @@ def spider_post(url,data1):
 	html = res.json()
 	return html
 
+func_get_random_word = lambda: random.choice(['来了','1','可以','在这'])
+
 def parse_article_get_dy(article_id):
 	if not article_id:
 		return []
@@ -143,9 +145,11 @@ def action(uid):
 
 
 def get_comment_word(dy_id,not_origin=1):
-	repost_detail=rq.get(f'https://api.vc.bilibili.com/dynamic_repost/v1/dynamic_repost/repost_detail?dynamic_id={dy_id}').json()
-	word=json.loads(repost_detail['data']['items'][-1]['card'])['item']['content']
-	data_comment['message']=word.split('//')[0] if word.split('//')[0]!='转发动态' and word.split('//')[0]!='' else '来了'
+	repost_detail=rq.get(get_son_dy_url(dy_id)).json()
+	repost_detail=repost_detail['data']['items'][-1]
+	word=json.loads(repost_detail['card'])['item']['content']
+	user_type = repost_detail['desc']['user_profile']['card']['official_verify']['type']
+	data_comment['message']=word.split('//')[0] if word.split('//')[0]!='转发动态' and word.split('//')[0]!='' and user_type==1 else func_get_random_word()
 	if not not_origin:  # 是为源动态
 		data_repost['content']=data_comment['message']
 	else:
