@@ -149,7 +149,7 @@ def get_comment_word(dy_id,not_origin=1):
 	repost_detail=repost_detail['data']['items'][-1]
 	word=json.loads(repost_detail['card'])['item']['content']
 	user_type = repost_detail['desc']['user_profile']['card']['official_verify']['type']
-	data_comment['message']=word.split('//')[0] if word.split('//')[0]!='转发动态' and word.split('//')[0]!='' and user_type==1 else func_get_random_word()
+	data_comment['message']=word.split('//')[0] if word.split('//')[0]!='转发动态' and word.split('//')[0]!='' and user_type != 1 else func_get_random_word()
 	if not not_origin:  # 是为源动态
 		data_repost['content']=data_comment['message']
 	else:
