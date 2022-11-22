@@ -91,7 +91,7 @@ def parse_article_get_dy(article_id):
 		return []
 	res=rq.get(f'https://www.bilibili.com/read/cv{article_id}',headers=header_noCookie).text
 
-	result=list(set(re.findall('https://t.bilibili.com/([0-9]+)',res)))
+	result=list(set(re.findall('https://t.bilibili.com/([0-9]{18})',res)))
 	b23_list=re.findall('href="https://b23.tv/(.+?)">',res)
 	b23_list=list(set(b23_list))
 # 	result = reduce(func,[[]]+result+b23_list)
@@ -137,7 +137,7 @@ def action(uid):
 				article_id=i['id']
 				break
 	except:
-		pass
+		return []
 	# article_id=articles[1]['id']
 	return parse_article_get_dy(article_id)
 
@@ -253,9 +253,9 @@ def check_dynamic_id():
 
 def main(dys):
 	if not dys:
-		print("---开始用户抽奖---")
+# 		print("---开始用户抽奖---")
 # 		os.system('python3 follow.py >> users_lucky.log')
-		print("---结束用户抽奖---")
+# 		print("---结束用户抽奖---")
 		return
 	for dy_id in dys:
 		try:
