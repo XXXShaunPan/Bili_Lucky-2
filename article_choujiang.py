@@ -130,18 +130,22 @@ def transform_to_dy_id(b23_list):	# https://b23.tv/vLj7KNq
 
 
 def action(uid):
-	article_id=''
+	article_id=[]
+	result = []
 	try:
 		articles=rq.get(f"https://api.bilibili.com/x/space/article?mid={uid}&pn=1&ps=12&sort=publish_time",headers=header_noCookie).json()['data']['articles']
 		for i in articles:
 			if i['id'] not in article_ids:
 				print(i['id'])
-				article_id=i['id']
+				article_id.append(i['id'])
+			else:
 				break
 	except:
-		return []
+		return result
 	# article_id=articles[1]['id']
-	return parse_article_get_dy(article_id)
+	for i in article_id:
+		result.extend(parse_article_get_dy(i))
+	return result
 
 
 def get_comment_word(dy_id,not_origin=1):
