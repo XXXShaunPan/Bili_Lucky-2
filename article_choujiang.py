@@ -135,9 +135,9 @@ def action(uid):
 	try:
 		articles=rq.get(f"https://api.bilibili.com/x/space/article?mid={uid}&pn=1&ps=12&sort=publish_time",headers=header_noCookie).json()['data']['articles']
 		for i in articles:
-			if i['id'] not in article_ids:
+			if str(i['id']) not in article_ids:
 				print(i['id'])
-				article_id.append(i['id'])
+				article_id.append(str(i['id']))
 			else:
 				break
 	except:
