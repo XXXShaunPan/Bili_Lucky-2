@@ -19,6 +19,8 @@ today_filename=datetime.now(timezone('Asia/Shanghai')).strftime('%Y-%m-%d=%H')
 official_list=[]
 # today_list=[]
 
+error_num=0
+
 header={
 	'content-type':'application/x-www-form-urlencoded',
 	'cookie':os.environ["BILI_COOKIE"],
@@ -92,14 +94,13 @@ def parse_article_get_dy(article_id):
 	if not article_id:
 		return []
 	res=rq.get(f'https://www.bilibili.com/read/cv{article_id}',headers=header_noCookie).text
-	dynamic_redis.save_dynamic(article_id,'article_id.txt')
 	result=list(set(re.findall('https://t.bilibili.com/([0-9]{18})',res)))
 	b23_list=re.findall('href="https://b23.tv/(.+?)">',res)
 	b23_list=list(set(b23_list))
 # 	result = reduce(func,[[]]+result+b23_list)
 	b23_list=transform_to_dy_id(b23_list)
 # 	return parse_dynamic_order(result)
-	return result+b23_list
+	return result+b23_list, article_id
 
 
 def parse_dynamic_order(result):
@@ -129,23 +130,24 @@ def transform_to_dy_id(b23_list):	# https://b23.tv/vLj7KNq
 	return ids
 
 
-def action(uid):
+def action():
 	article_id=[]
-	result = []
-	try:
-		articles=rq.get(f"https://api.bilibili.com/x/space/article?mid={uid}&pn=1&ps=12&sort=publish_time",headers=header_noCookie).json()['data']['articles']
-		for i in articles:
-			if str(i['id']) not in article_ids:
-				print(i['id'])
-				article_id.append(str(i['id']))
-			else:
-				break
-	except:
-		return result
+# 	result = []
+	for uid in article_uid:
+		try:
+			articles=rq.get(f"https://api.bilibili.com/x/space/article?mid={uid}&pn=1&ps=12&sort=publish_time",headers=header_noCookie).json()['data']['articles']
+			for i in articles:
+				if str(i['id']) not in article_ids:
+					print(i['id'])
+					article_id.append(str(i['id']))
+				else:
+					break
+		except:
+			pass
 	# article_id=articles[1]['id']
-	for i in article_id:
-		result.extend(parse_article_get_dy(i))
-	return result
+# 	for i in article_id:
+# 		result.extend(parse_article_get_dy(i))
+	return article_id
 
 
 def get_comment_word(dy_id,not_origin=1):
@@ -259,12 +261,13 @@ def check_dynamic_id():
 	return dynamic_redis.get_dynamic()
 
 
-def main(dys):
+def main(dys,article_id=0):
 	if not dys:
 # 		print("---开始用户抽奖---")
 # 		os.system('python3 follow.py >> users_lucky.log')
 # 		print("---结束用户抽奖---")
 		return
+	global error_num
 	for dy_id in dys:
 		try:
 			print('https://t.bilibili.com/',dy_id)
@@ -294,16 +297,19 @@ def main(dys):
 					dynamic_redis.save_dynamic(dy_id)
 			time.sleep(random.randint(6,11))
 		except Exception as e:
+			error_num+=1
 			print(e)
+	if error_num<6:
+		dynamic_redis.save_dynamic(article_id,'article_id.txt')
+	error_num=0
 
 			
 def pre_man():
 	if article_id:
-		dys=parse_article_get_dy(article_id)
-		main(dys)
+		main(*parse_article_get_dy(article_id))
 		return
-	for i in article_uid:
-		main(action(i))
+	for i in action():
+		main(*parse_article_get_dy(i))
 
 
 
