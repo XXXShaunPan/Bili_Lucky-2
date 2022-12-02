@@ -7,7 +7,8 @@ from datetime import datetime
 from pytz import timezone
 # from lxml import etree
 
-csrf=os.environ["CSRF"]
+cookie = os.environ["BILI_COOKIE"]
+csrf = list(filter(lambda x:'bili_jct' in x,cookie.split('; ')))[0].split('=')[1]
 
 article_id=os.environ["article_id"]
 
@@ -23,7 +24,7 @@ error_num=0
 
 header={
 	'content-type':'application/x-www-form-urlencoded',
-	'cookie':os.environ["BILI_COOKIE"],
+	'cookie':cookie,
         'origin':'https://t.bilibili.com',
 	'pragma':'no-cache',
 	'referer':'https://t.bilibili.com/',
