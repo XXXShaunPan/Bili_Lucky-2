@@ -5,8 +5,8 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-  schedule:
-    - cron: "10 22,4 * * *"
+  #schedule:
+  #  - cron: "10 22,4 * * *"
   watch:
     types: started
   workflow_dispatch:
