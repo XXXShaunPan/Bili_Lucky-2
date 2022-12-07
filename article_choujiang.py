@@ -141,6 +141,7 @@ def action():
 				if str(i['id']) not in article_ids:
 					print(i['id'])
 					article_id.append(str(i['id']))
+					break
 				else:
 					break
 		except:
