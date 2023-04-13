@@ -153,9 +153,9 @@ def action():
 
 
 def get_comment_word(dy_id,not_origin=1):
-	repost_detail=rq.get(get_son_dy_url(dy_id)).json()
-	repost_detail=repost_detail['data']['items']
-	for repost_detail in repost_detail['data']['items'][::-1]:
+	repost_details=rq.get(get_son_dy_url(dy_id)).json()
+	repost_details=repost_details['data']['items'][::-1]
+	for repost_detail in repost_details:
 		word=json.loads(repost_detail['card'])['item']['content']
 		if '//' in word or not_origin^1:
 			break
