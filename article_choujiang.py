@@ -50,26 +50,7 @@ data_follow={
 }
 
 
-data_repost={
-	'uid':'1090970340',
-	'dynamic_id':'',
-	'content':'我觉得会是我~！',
-	'extension':'{"emoji_type":1}',
-	'at_uids':'',
-	'ctrl':'[]',
-	'csrf_token':csrf,
-	'csrf':csrf
-}
-
-data_comment={
-	'oid':'116883742',
-	'type':'17',
-	'message':'冲一波~',
-	'plat':'1',
-	'ordering':'heat',
-	'jsonp':'jsonp',
-	'csrf':csrf
-}
+c
 
 data_thumbsUp={
 	'uid':'1090970340',
@@ -80,6 +61,8 @@ data_thumbsUp={
 }
 
 get_son_dy_url=lambda x:f'https://api.vc.bilibili.com/dynamic_repost/v1/dynamic_repost/repost_detail?dynamic_id={x}'
+
+get_word_from_son_dy_url = lambda x:f"https://api.bilibili.com/x/polymer/web-dynamic/v1/detail/forward?id={x}"
 
 func = lambda x,y:x if y in x else x + [y]  
 article_ids=dynamic_redis.get_dynamic('article_id.txt')
@@ -153,14 +136,14 @@ def action():
 
 
 def get_comment_word(dy_id,not_origin=1):
-	repost_details=rq.get(get_son_dy_url(dy_id)).json()
+	repost_details=rq.get(get_word_from_son_dy_url(dy_id)).json()
 	repost_details=repost_details['data']['items'][::-1]
 	for repost_detail in repost_details:
-		word=json.loads(repost_detail['card'])['item']['content']
-		if '//' in word or not_origin^1:
+		user_type = repost_detail['user']['official']['type']
+		word=repost_detail['desc']['text']
+		if ('//' in word or not_origin^1) and user_type != 1:
 			break
-	user_type = repost_detail['desc']['user_profile']['card']['official_verify']['type']
-	data_comment['message']=word.split('//')[0] if word.split('//')[0]!='转发动态' and word.split('//')[0]!='' and user_type != 1 else func_get_random_word()
+	data_comment['message']=word.split('//')[0] if word.split('//')[0]!='转发动态' and word.split('//')[0]!='' else func_get_random_word()
 	if not not_origin:  # 是为源动态
 		data_repost['content']=data_comment['message']
 	else:
