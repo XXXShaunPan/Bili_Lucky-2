@@ -154,8 +154,11 @@ def action():
 
 def get_comment_word(dy_id,not_origin=1):
 	repost_detail=rq.get(get_son_dy_url(dy_id)).json()
-	repost_detail=repost_detail['data']['items'][-1]
-	word=json.loads(repost_detail['card'])['item']['content']
+	repost_detail=repost_detail['data']['items']
+	for repost_detail in repost_detail['data']['items'][::-1]:
+		word=json.loads(repost_detail['card'])['item']['content']
+		if '//' in word or not_origin^1:
+			break
 	user_type = repost_detail['desc']['user_profile']['card']['official_verify']['type']
 	data_comment['message']=word.split('//')[0] if word.split('//')[0]!='转发动态' and word.split('//')[0]!='' and user_type != 1 else func_get_random_word()
 	if not not_origin:  # 是为源动态
