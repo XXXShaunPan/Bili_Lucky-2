@@ -50,8 +50,6 @@ data_follow={
 }
 
 
-c
-
 data_thumbsUp={
 	'uid':'1090970340',
 	'dynamic_id':'',
