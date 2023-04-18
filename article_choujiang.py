@@ -49,6 +49,26 @@ data_follow={
 	'csrf':csrf
 }
 
+data_repost={
+	'uid':'1090970340',
+	'dynamic_id':'',
+	'content':'我觉得会是我~！',
+	'extension':'{"emoji_type":1}',
+	'at_uids':'',
+	'ctrl':'[]',
+	'csrf_token':csrf,
+	'csrf':csrf
+}
+
+data_comment={
+	'oid':'116883742',
+	'type':'17',
+	'message':'冲一波~',
+	'plat':'1',
+	'ordering':'heat',
+	'jsonp':'jsonp',
+	'csrf':csrf
+}
 
 data_thumbsUp={
 	'uid':'1090970340',
