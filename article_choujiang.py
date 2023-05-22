@@ -33,7 +33,8 @@ header={
 
 header_noCookie={
 	'content-type':'application/x-www-form-urlencoded',
-	'origin':'https://t.bilibili.com',
+	'cookie':cookie,
+        'origin':'https://t.bilibili.com',
 	'pragma':'no-cache',
 	'referer':'https://t.bilibili.com/',
 	'user-agent':'mozilla/5.0 (windowS NT 6.1; win64; x64) appLewEbkit/537.36 (KHTML, likE gecko) chrome/88.0.4324.190 safari/537.36'
