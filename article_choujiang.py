@@ -305,6 +305,7 @@ def main(dys,article_id=0):
 		except Exception as e:
 			error_num+=1
 			print(e)
+			print(f"error line:{e.__traceback__.tb_lineno}")
 	if error_num<6:
 		dynamic_redis.save_dynamic(article_id,'article_id.txt')
 	error_num=0
