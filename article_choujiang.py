@@ -142,7 +142,7 @@ def transform_to_dy_id(b23_list):	# https://b23.tv/vLj7KNq
 	for url in b23_list:
 		time.sleep(0.2)
 		try:
-			response = rq.get("https://b23.tv/"+url)
+			response = rq.get("https://b23.tv/"+url,headers=header_noCookie)
 			url1=response.history[0].headers['Location']
 			id=re.findall(r".*dynamic/([0-9]*)\?.*",url1)
 			ids.append(id[0])
@@ -173,7 +173,7 @@ def action():
 
 
 def get_comment_word(dy_id,not_origin=1):
-	repost_details=rq.get(get_word_from_son_dy_url(dy_id)).json()
+	repost_details=rq.get(get_word_from_son_dy_url(dy_id),headers=header_noCookie).json()
 	repost_details=repost_details['data']['items'][::-1]
 	for repost_detail in repost_details:
 		user_type = repost_detail['user']['official']['type']
@@ -189,7 +189,6 @@ def get_comment_word(dy_id,not_origin=1):
 
 def get_uid_oid(dy_id):
 	res=rq.get(f"https://api.vc.bilibili.com/dynamic_svr/v1/dynamic_svr/get_dynamic_detail?dynamic_id={dy_id}",headers=header_noCookie).json()
-	print(res)
 	keys=res['data']['card']['desc']
 
 	if 'extension' in res['data']['card'].keys() or 'add_on_card_info' in res['data']['card']['display'].keys():
@@ -295,40 +294,40 @@ def main(dys,article_id=0):
 		return
 	global error_num
 	for dy_id in dys:
-		# try:
-		print('https://t.bilibili.com/',dy_id)
-		if dy_id in already_dynamic_id:
-			print("已有")
-			continue
-		result=get_uid_oid(dy_id)
-		break
-		if result==1: # 到官方抽奖了
-			get_son_lucky_dy(dy_id)
-# 				official_list.append(dy_id)
-			print("官方抽奖 或 预约抽奖")
-# 				if len(official_list)>5:
-# 					break
-			continue
-		if not result:
-			print('*#*#*#*#*#*#*#*#*#*原动态处理失败*#*#*#*#*#*#*#*#*#')
-			continue
-		uid,oid,uname,not_origin=result
-		if dy_id not in already_dynamic_id:
-			get_comment_word(dy_id,not_origin)		
-			if to_comment(oid,dy_id,not_origin) and to_repost(dy_id):
-				to_follow(uid)	
-				# to_thumbsUp(dy_id)
-				print(uname+"\n\n")
-				already_dynamic_id.append(dy_id)
-# 					today_list.append(dy_id)
-				dynamic_redis.save_dynamic(dy_id)
-		time.sleep(random.randint(6,11))
-		# except Exception as e:
-		# 	error_num+=1
-		# 	print(e)
-		# 	print(f"error line:{e.__traceback__.tb_lineno}")
-	# if error_num<6:
-	# 	dynamic_redis.save_dynamic(article_id,'article_id.txt')
+		try:
+			print('https://t.bilibili.com/',dy_id)
+			if dy_id in already_dynamic_id:
+				print("已有")
+				continue
+			result=get_uid_oid(dy_id)
+			break
+			if result==1: # 到官方抽奖了
+				get_son_lucky_dy(dy_id)
+	# 				official_list.append(dy_id)
+				print("官方抽奖 或 预约抽奖")
+	# 				if len(official_list)>5:
+	# 					break
+				continue
+			if not result:
+				print('*#*#*#*#*#*#*#*#*#*原动态处理失败*#*#*#*#*#*#*#*#*#')
+				continue
+			uid,oid,uname,not_origin=result
+			if dy_id not in already_dynamic_id:
+				get_comment_word(dy_id,not_origin)		
+				if to_comment(oid,dy_id,not_origin) and to_repost(dy_id):
+					to_follow(uid)	
+					# to_thumbsUp(dy_id)
+					print(uname+"\n\n")
+					already_dynamic_id.append(dy_id)
+	# 					today_list.append(dy_id)
+					dynamic_redis.save_dynamic(dy_id)
+			time.sleep(random.randint(6,11))
+		except Exception as e:
+			error_num+=1
+			print(e)
+			print(f"error line:{e.__traceback__.tb_lineno}")
+	if error_num<6:
+		dynamic_redis.save_dynamic(article_id,'article_id.txt')
 	error_num=0
 
 			
