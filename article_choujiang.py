@@ -189,6 +189,7 @@ def get_comment_word(dy_id,not_origin=1):
 
 def get_uid_oid(dy_id):
 	res=rq.get(f"https://api.vc.bilibili.com/dynamic_svr/v1/dynamic_svr/get_dynamic_detail?dynamic_id={dy_id}",headers=header_noCookie).json()
+	print(res)
 	keys=res['data']['card']['desc']
 
 	if 'extension' in res['data']['card'].keys() or 'add_on_card_info' in res['data']['card']['display'].keys():
@@ -300,6 +301,7 @@ def main(dys,article_id=0):
 				print("已有")
 				continue
 			result=get_uid_oid(dy_id)
+			break
 			if result==1: # 到官方抽奖了
 				get_son_lucky_dy(dy_id)
 # 				official_list.append(dy_id)
