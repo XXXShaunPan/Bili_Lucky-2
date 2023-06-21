@@ -295,40 +295,40 @@ def main(dys,article_id=0):
 		return
 	global error_num
 	for dy_id in dys:
-		try:
-			print('https://t.bilibili.com/',dy_id)
-			if dy_id in already_dynamic_id:
-				print("已有")
-				continue
-			result=get_uid_oid(dy_id)
-			break
-			if result==1: # 到官方抽奖了
-				get_son_lucky_dy(dy_id)
+		# try:
+		print('https://t.bilibili.com/',dy_id)
+		if dy_id in already_dynamic_id:
+			print("已有")
+			continue
+		result=get_uid_oid(dy_id)
+		break
+		if result==1: # 到官方抽奖了
+			get_son_lucky_dy(dy_id)
 # 				official_list.append(dy_id)
-				print("官方抽奖 或 预约抽奖")
+			print("官方抽奖 或 预约抽奖")
 # 				if len(official_list)>5:
 # 					break
-				continue
-			if not result:
-				print('*#*#*#*#*#*#*#*#*#*原动态处理失败*#*#*#*#*#*#*#*#*#')
-				continue
-			uid,oid,uname,not_origin=result
-			if dy_id not in already_dynamic_id:
-				get_comment_word(dy_id,not_origin)		
-				if to_comment(oid,dy_id,not_origin) and to_repost(dy_id):
-					to_follow(uid)	
-					# to_thumbsUp(dy_id)
-					print(uname+"\n\n")
-					already_dynamic_id.append(dy_id)
+			continue
+		if not result:
+			print('*#*#*#*#*#*#*#*#*#*原动态处理失败*#*#*#*#*#*#*#*#*#')
+			continue
+		uid,oid,uname,not_origin=result
+		if dy_id not in already_dynamic_id:
+			get_comment_word(dy_id,not_origin)		
+			if to_comment(oid,dy_id,not_origin) and to_repost(dy_id):
+				to_follow(uid)	
+				# to_thumbsUp(dy_id)
+				print(uname+"\n\n")
+				already_dynamic_id.append(dy_id)
 # 					today_list.append(dy_id)
-					dynamic_redis.save_dynamic(dy_id)
-			time.sleep(random.randint(6,11))
-		except Exception as e:
-			error_num+=1
-			print(e)
-			print(f"error line:{e.__traceback__.tb_lineno}")
-	if error_num<6:
-		dynamic_redis.save_dynamic(article_id,'article_id.txt')
+				dynamic_redis.save_dynamic(dy_id)
+		time.sleep(random.randint(6,11))
+		# except Exception as e:
+		# 	error_num+=1
+		# 	print(e)
+		# 	print(f"error line:{e.__traceback__.tb_lineno}")
+	# if error_num<6:
+	# 	dynamic_redis.save_dynamic(article_id,'article_id.txt')
 	error_num=0
 
 			
