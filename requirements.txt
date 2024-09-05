@@ -1,3 +1,7 @@
-requests
-redis
 pytz
+requests
+execjs
+loguru
+better-exceptions
+smtplib
+email
