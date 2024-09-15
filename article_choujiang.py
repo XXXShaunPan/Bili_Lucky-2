@@ -15,7 +15,6 @@ from emailSender import EmailSender
 # import pymongo
 # import dynamic_redis
 # from lxml import etree
-# import bili_lucky_for_cookies
 # from functools import reduce
 
 # myclient = pymongo.MongoClient('mongodb://192.168.2.23:27018')
@@ -32,11 +31,11 @@ log_ = None
 check_follow_ban = False
 proxies = {}
 context = execjs.compile(open('bili_index_encrypt.js').read())
-# cookie = bili_lucky_for_cookies.main()
-cookie, article_id, MAILLQQ, MAILSECRET = [os.environ.get(key,'') for key in ["BILI_COOKIE","article_id","MAILLQQ","MAILSECRET"]]
+cookie, article_id, MAILLQQ, MAILLSECRET = [
+    os.environ.get(key,'') for key in ["BILI_COOKIE", "article_id", "MAILLQQ", "MAILLSECRET"]
+]
 csrf = list(filter(lambda x: 'bili_jct' in x,
                    cookie.split('; ')))[0].split('=')[1]
-
 
 article_uid = [
     '226257459',
@@ -96,13 +95,14 @@ new_data_repost = {
 }
 
 data_comment = {
-    'oid': '116883742',
+    'oid': '976124067840000005',
     'type': '17',
-    'message': '~',
+    'message': '~122',
     'plat': '1',
     'ordering': 'heat',
-    'jsonp': 'jsonp',
-    'csrf': csrf
+    # 'jsonp': 'jsonp',
+    'gaia_source': 'main_web',
+    'csrf': csrf,
 }
 
 data_thumbsUp = {
@@ -111,29 +111,33 @@ data_thumbsUp = {
     'csrf': csrf,
 }
 
+
 def send_email(title='', content=''):
     if content.endswith('.log'):
-        with open(f'bili_lucky_detail/{content}', 'r', encoding='utf-8') as f:
+        with open(f'{content}', 'r', encoding='utf-8') as f:
             content = f.read()
     with EmailSender(username=MAILLQQ,
-                     password=MAILSECRET,
+                     password=MAILLSECRET,
                      smtpserver='smtp.qq.com',
                      sender='动态Lucky-report') as email:
         email.send([MAILLQQ], title, content)
 
 
-def save_dynamic(dynamic_id, filename='bili_lucky_dyid_list.txt'):
+def save_dynamic(dynamic_id, send_id, filename='bili_lucky_dyid_list.txt'):
     with open(filename, 'a', encoding='utf-8') as f:
-        f.writelines(f'{dynamic_id}\n')
+        f.writelines(f'{dynamic_id}=={send_id}\n')
 
 
 # 	rd.lpush("already_dynamic_id-2", dynamic_id)
 
-def check_dynamic_id(filename='bili_lucky_dyid_list.txt'):
+
+def get_already_dynamic_id(filename='bili_lucky_dyid_list.txt'):
     # 获取所有已经发送过的存在的动态id
     # return list(map(lambda x: x['dynamic_id'], col_dynamic.find({}, {'_id': 0, 'dynamic_id': 1})))
     with open(filename, 'r', encoding='utf-8') as f:
-        return f.read().split('\n')[-1000:]
+        all_ids = f.read().split('\n')[-1000:]
+        return list(map(lambda x: x.split('==')[0], all_ids))
+
 
 def get_son_dy_url(x):
     return f'https://api.vc.bilibili.com/dynamic_repost/v1/dynamic_repost/repost_detail?dynamic_id={x}'
@@ -144,12 +148,12 @@ def get_word_from_son_dy_url(x):
 
 
 def create_check_user_info_url(x):
-    wts, rid = context.call('mainf',x).values()
+    wts, rid = context.call('mainf', x).values()
     return f"https://api.bilibili.com/x/space/wbi/acc/info?mid={x}&token=&platform=web&web_location=1550101&w_rid={rid}&wts={wts}"
 
 
 def func(x, y):
-    
+
     return x if y in x else x + [y]
 
 
@@ -160,11 +164,15 @@ def process_already_art_id(article_id=0, options='read'):
     else:
         with open('bili_lucky_detail/alread_process_article_id.txt', 'a') as f:
             f.write(f'\n{article_id}')
-        send_email(title='success', content=f'bili_lucky_detail/{article_id}_logger.log')
+        send_email(title='success',
+                   content=f'bili_lucky_detail/{article_id}_logger.log')
 
 
 article_ids = process_already_art_id()
 # article_ids = []
+
+def requests_error_reponse(request, response):
+    ...
 
 
 def spider_post(url, data1, data_type):
@@ -178,15 +186,15 @@ def spider_post(url, data1, data_type):
                               headers=header,
                               json=data1,
                               proxies=proxies,
-                              timeout=5).json()
+                              timeout=5)
             else:
                 header['content-type'] = 'application/x-www-form-urlencoded'
                 res = rq.post(url,
                               headers=header,
                               data=data1,
                               proxies=proxies,
-                              timeout=5).json()
-            return res
+                              timeout=5)
+            return res.json()
         except (RequestException, HTTPError, ConnectionError, ProxyError,
                 SSLError, Timeout, ConnectTimeout, ReadTimeout, InvalidSchema,
                 InvalidURL, InvalidHeader, InvalidProxyURL,
@@ -335,6 +343,7 @@ def get_uid_oid(dy_id):
             return 1
         # log_.info(keys)
         if keys.get('origin'):
+            log_.info('=========此为子动态=========')
             get_comment_word(keys['origin']['dynamic_id_str'], 1)
             if not parse_origin_dy(keys['origin']):
                 return 0
@@ -349,6 +358,13 @@ def get_uid_oid(dy_id):
         return 0
 
 
+def get_mid_from_son_dy(dy_id):
+    res = req_get(f"https://api.bilibili.com/x/v2/reply/subject/description?oid={dy_id}&type=17&web_location=333.1368").json()['data'].get('base')
+    if res:
+        return res['up_mid']
+    return 348933133
+
+
 def get_son_lucky_dy(dy_id, is_official=False):
     res = req_get(get_son_dy_url(dy_id)).json()['data']['items']
     log_.info('*********子动态开始*********')
@@ -356,16 +372,15 @@ def get_son_lucky_dy(dy_id, is_official=False):
         try:
             # i = json.loads(j['card'])
             # if j['desc']['user_profile']['card']['official_verify']['type'] == 1 and all([key in i['item']['content'] for key in ['关注', '抽']]):
-            if j['desc'].get('previous'):
+            if j['desc'].get('pre_dy_id_str') != j['desc']['orig_dy_id_str']:
                 #       if all([key in i['item']['content'] for key in ['关注','抽']]) and '//' not in i['item']['content']:
-                son_dy_id = j['desc']['previous']['dynamic_id_str']
+                son_dy_id = j['desc']['pre_dy_id_str']
                 if son_dy_id not in already_dynamic_id:
                     get_comment_word(son_dy_id)
                     send_id = to_repost(son_dy_id, source='son')
                     if send_id and to_comment(1, son_dy_id, True):
-                        to_follow(j['desc']['previous']['uid'])
+                        to_follow(get_mid_from_son_dy(son_dy_id))
                         already_dynamic_id.append(son_dy_id)
-                        save_dynamic(*(son_dy_id, send_id))
                         log_.info('----完成一个子动态----')
         except Exception as e:
             globals()['error_num'] += 1
@@ -380,12 +395,12 @@ def parse_origin_dy(origin):
         log_.info("*************原动态处理开始***************")
         send_id = to_repost(orig_dy_id)
         if send_id and to_comment(origin['rid'], orig_dy_id,
-                                  int(origin['dynamic_id_str']),
+                                  False,
                                   origin['type']):
             to_follow(origin['uid'])
             to_thumbsUp(orig_dy_id)
             # if origin['type']!=8:
-            save_dynamic(*(orig_dy_id, send_id))
+
             already_dynamic_id.append(orig_dy_id)
             log_.info("*************原动态处理完成***************")
         else:
@@ -412,8 +427,9 @@ def to_booking_activity(reserve_id, dyid):
 def to_follow(uid):
     global check_follow_ban
     try:
-        if not check_follow_ban and req_get(
-                create_check_user_info_url(uid)).json()['data']['is_followed']:
+        follow_res = req_get(
+                create_check_user_info_url(uid)).json()
+        if not check_follow_ban and follow_res['data']['is_followed']:
             log_.info(f'{uid} === 已经关注了')
             return
     except KeyError as ke:
@@ -466,7 +482,9 @@ def to_repost(dynamic_id, source='available'):
         repost_item, 'json')
     if repost_res['code'] == 0:
         log_.info(f"转发成功 {repost_res['data']['dyn_id_str']}")
-        return repost_res['data']['dyn_id_str']
+        send_id = repost_res['data']['dyn_id_str']
+        save_dynamic(*(dynamic_id, send_id))
+        return send_id
     return 0
 
 
@@ -480,7 +498,7 @@ def to_comment(oid, dy_id, not_origin, type=0):
         data_comment.update({"oid": dy_id, 'type': '17'})
     if type == 8:
         data_comment.update({"oid": oid, 'type': '1', 'ordering': 'heat'})
-    res = spider_post("https://api.bilibili.com/x/v2/reply/add?csrf=" + csrf,
+    res = spider_post("https://api.bilibili.com/x/v2/reply/add",
                       data_comment, 'data')
     log_.info('评论' + res['data']['success_toast'])
     return res['data'].get('success_toast', 0)
@@ -495,6 +513,10 @@ def to_thumbsUp(dynamic_id):
 
 
 def main(dys):
+    log_.info(
+        "==================================================" +
+        datetime.now(timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M') +
+        "==================================================")
     if not dys:
         #       log_.info("---开始用户抽奖---")
         #       os.system('python3 follow.py >> users_lucky.log')
@@ -530,7 +552,6 @@ def main(dys):
                     to_thumbsUp(dy_id)
                     # log_.info(uname + "\n\n")
                     already_dynamic_id.append(dy_id)
-                    save_dynamic(*(dy_id, send_id))
             except Exception as e:
                 globals()['error_num'] += 1
                 log_.error(e)
@@ -539,30 +560,27 @@ def main(dys):
         time.sleep(random.randint(3, 6))
     log_.info('执行结束')
     process_already_art_id(
-        article_id,
-        'write') if error_num < 6 else send_email(title='执行失败', content=f'bili_lucky_detail/{article_id}_logger.log')
+        article_id, 'write') if error_num < 6 else send_email(
+            title='执行失败', content=f'bili_lucky_detail/{article_id}_logger.log')
     error_num = 0
+    log_.info(
+        "==================================================" +
+        datetime.now(timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M') +
+        "==================================================")
 
 
 def pre_man():
     if article_id:
-        main(*parse_article_get_dy(article_id))
+        main(parse_article_get_dy(article_id))
         return
     for art_id in action():
-        main(*parse_article_get_dy(art_id))
+        main(parse_article_get_dy(art_id))
 
 
-already_dynamic_id = check_dynamic_id()
+already_dynamic_id = get_already_dynamic_id()
 # already_dynamic_id = col_dynamic.find({},{'_id':0,'dynamic_id':1})
 if __name__ == '__main__':
-    log_.info("==================================================" +
-          datetime.now(timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M') +
-          "==================================================")
     pre_man()
-
-    log_.info("==================================================" +
-          datetime.now(timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M') +
-          "==================================================")
     if need_follow_account:
         with open(f'bili_lucky_detail/need_follow_account.txt', 'a') as f:
             f.write('\n'.join(need_follow_account))
