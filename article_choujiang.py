@@ -557,7 +557,7 @@ def main(dys):
                 log_.error(e)
                 log_.error(f"error line:{e.__traceback__.tb_lineno}")
     #                   today_list.append(dy_id)
-        time.sleep(random.randint(3, 6))
+        time.sleep(random.randint(1, 4))
     log_.info('执行结束')
     process_already_art_id(
         article_id, 'write') if error_num < 6 else send_email(
