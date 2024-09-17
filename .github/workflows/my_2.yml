@@ -25,6 +25,9 @@ env:
 #   CSRF: ${{ secrets.CSRF }}
 #   BILI_COOKIE: ${{ secrets.BILI_COOKIE }}
   UIDS: ${{ secrets.UIDS }}
+  BILI_COOKIE: ${{ secrets.BILI_COOKIE }}
+  MAILLQQ: ${{ secrets.MAILLQQ }}
+  MAILLSECRET: ${{ secrets.MAILLSECRET }}
   Artice_Uid: ${{ secrets.Artice_Uid }}
   
 jobs:
