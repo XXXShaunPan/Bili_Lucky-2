@@ -197,12 +197,14 @@ def req_get(url):
                          headers=header_noCookie,
                          proxies=proxies,
                          timeout=5)
+            if '风控' in res.json()['message']:
+                raise HTTPError(res.json()['message'])
             return res
         except (RequestException, HTTPError, ConnectionError, ProxyError,
                 SSLError, Timeout, ConnectTimeout, ReadTimeout, InvalidSchema,
                 InvalidURL, InvalidHeader, InvalidProxyURL,
                 ContentDecodingError, RetryError, RequestsWarning) as e:
-            log_.error(f'get_error')
+            log_.error(f'get_error', e)
     raise ValueError('GET请求失败', url)
 
 
