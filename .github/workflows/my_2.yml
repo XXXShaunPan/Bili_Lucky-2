@@ -55,7 +55,7 @@ jobs:
 #       if: github.event_name != 'workflow_dispatch'  
       env:
         article_id: ${{ github.event.inputs.article_id }}
-        BILI_COOKIE: ${{ github.event.inputs.bili_cookie }}
+        BILI_COOKIE_FROM_INPUT: ${{ github.event.inputs.bili_cookie }}
       run: |
         python3 article_choujiang.py >> articles_lucky.log
       
