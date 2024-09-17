@@ -12,20 +12,6 @@ from requests.exceptions import *
 import execjs
 from LogScript import Log
 from emailSender import EmailSender
-# import pymongo
-# import dynamic_redis
-# from lxml import etree
-# from functools import reduce
-
-# myclient = pymongo.MongoClient('mongodb://192.168.2.23:27018')
-# mydb_proxy = myclient["PublicData"]
-# col_dynamic = mydb_proxy['dynamic_id_map']
-# def save_dynamic(dy_id, my_id):
-#     col_dynamic.insert_one({
-#         'dynamic_id': dy_id,
-#         'my_send_id': my_id,
-#         'send_time': datetime.now()
-#     })
 
 log_ = None
 check_follow_ban = False
@@ -34,7 +20,7 @@ context = execjs.compile(open('bili_index_encrypt.js').read())
 cookie, article_id, MAILLQQ, MAILLSECRET = [
     os.environ.get(key,'') for key in ["BILI_COOKIE", "article_id", "MAILLQQ", "MAILLSECRET"]
 ]
-print(cookie)
+print('ccc: ',cookie)
 csrf = list(filter(lambda x: 'bili_jct' in x,
                    cookie.split('; ')))[0].split('=')[1]
 
