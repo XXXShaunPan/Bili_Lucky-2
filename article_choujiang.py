@@ -20,8 +20,6 @@ context = execjs.compile(open('bili_index_encrypt.js').read())
 cookie, article_id, MAILLQQ, MAILLSECRET = [
     os.environ.get(key,'') for key in ["BILI_COOKIE", "article_id", "MAILLQQ", "MAILLSECRET"]
 ]
-print('ccc: ',cookie)
-print(os.environ)
 csrf = list(filter(lambda x: 'bili_jct' in x,
                    cookie.split('; ')))[0].split('=')[1]
 
