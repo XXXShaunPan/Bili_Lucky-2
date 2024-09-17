@@ -38,10 +38,11 @@ jobs:
     - name: 初始化Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.7
+        python-version: 3.10
         
     - name: pip依赖包
       run: |
+        python -m pip install --upgrade pip
         pip install -r requirements.txt
         
     - name: 开始转发抽奖动态
