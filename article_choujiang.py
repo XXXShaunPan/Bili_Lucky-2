@@ -189,7 +189,7 @@ def spider_post(url, data1, data_type):
     raise ValueError('Post请求失败', url)
 
 
-def req_get(url):
+def req_get(url, need_check_ban=False):
     for _ in range(5):
         try:
             time.sleep(random.randint(1, 4))
@@ -197,7 +197,7 @@ def req_get(url):
                          headers=header_noCookie,
                          proxies=proxies,
                          timeout=5)
-            if '风控' in res.json()['message']:
+            if need_check_ban and '风控' in res.json()['message']:
                 raise HTTPError(res.json()['message'])
             return res
         except (RequestException, HTTPError, ConnectionError, ProxyError,
@@ -416,7 +416,7 @@ def to_follow(uid):
     global check_follow_ban
     try:
         follow_res = req_get(
-                create_check_user_info_url(uid)).json()
+                create_check_user_info_url(uid), need_check_ban=True).json()
         if not check_follow_ban and follow_res['data']['is_followed']:
             log_.info(f'{uid} === 已经关注了')
             return
