@@ -225,7 +225,7 @@ def parse_article_get_dy(article_id):
             max_bytes=None,
             backup_count=None,
             encoding=None,
-            log_format="%(asctime)s|%(funcName)s|line:%(lineno)d| %(message)s"
+            log_format="%(asctime)s|line:%(lineno)d| %(message)s"
             ),
         'article_id':
         article_id
