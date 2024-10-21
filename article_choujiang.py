@@ -415,9 +415,7 @@ def to_booking_activity(reserve_id, dyid):
 def to_follow(uid):
     global check_follow_ban
     try:
-        follow_res = req_get(
-                create_check_user_info_url(uid), need_check_ban=True).json()
-        if not check_follow_ban and follow_res['data']['is_followed']:
+        if not check_follow_ban and req_get(create_check_user_info_url(uid), need_check_ban=True).json()['data']['is_followed']:
             log_.info(f'{uid} === 已经关注了')
             return
     except KeyError as ke:
