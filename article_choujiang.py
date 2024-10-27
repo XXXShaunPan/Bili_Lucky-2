@@ -420,7 +420,7 @@ def to_follow(uid):
             return
     except KeyError as ke:
         check_follow_ban = True
-        log_.error('关注出错，', ke)
+        log_.error(f'关注出错，{ke}')
     data_follow['fid'] = uid
     res = spider_post("https://api.bilibili.com/x/relation/modify",
                       data_follow, 'data')
