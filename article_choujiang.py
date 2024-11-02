@@ -204,7 +204,7 @@ def req_get(url, need_check_ban=False):
                 SSLError, Timeout, ConnectTimeout, ReadTimeout, InvalidSchema,
                 InvalidURL, InvalidHeader, InvalidProxyURL,
                 ContentDecodingError, RetryError, RequestsWarning) as e:
-            log_.error(f'get_error', e)
+            log_.error(e)
     raise ValueError('GET请求失败', url)
 
 
