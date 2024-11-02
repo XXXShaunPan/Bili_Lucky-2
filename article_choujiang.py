@@ -418,9 +418,9 @@ def to_follow(uid):
         if not check_follow_ban and req_get(create_check_user_info_url(uid), need_check_ban=True).json()['data']['is_followed']:
             log_.info(f'{uid} === 已经关注了')
             return
-    except KeyError as ke:
+    except Exception as e:
         check_follow_ban = True
-        log_.error(f'关注出错')
+        log_.error(f'check接口被ban')
     data_follow['fid'] = uid
     res = spider_post("https://api.bilibili.com/x/relation/modify",
                       data_follow, 'data')
