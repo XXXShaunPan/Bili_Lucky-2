@@ -280,6 +280,7 @@ def action():
             f"https://api.bilibili.com/x/space/article?mid={uid}&pn=1&ps=12&sort=publish_time"
         ).json()['data']['articles']
         for i in articles:
+            print(i)
             if str(i['id']) not in article_ids and (time.time() -
                                                     i['ctime']) < 36 * 3600:
                 article_id.append(str(i['id']))
