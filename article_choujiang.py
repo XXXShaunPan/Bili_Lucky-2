@@ -37,14 +37,14 @@ today_filename = datetime.now(
 header = {
     'authority': 'api.vc.bilibili.com',
     'cookie': cookie,
-    'User-Agent': 'Apifox/1.0.0 (https://apifox.com)',
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0',
     'content-type': ''
 }
 
 header_noCookie = {
     'authority': 'api.vc.bilibili.com',
     'cookie': cookie,
-    'User-Agent': 'Apifox/1.0.0 (https://apifox.com)',
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0',
     'content-type': 'application/json'
 }
 
