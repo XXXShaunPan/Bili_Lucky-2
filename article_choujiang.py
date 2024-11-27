@@ -235,7 +235,7 @@ def parse_article_get_dy(article_id):
         return []
     res = req_get(f'https://www.bilibili.com/read/cv{article_id}').text
     result = list(
-        set(re.findall(r'https://\w+\.?bilibili.com/[opus/]*([0-9]{18})',
+        set(re.findall(r'https://\w+\.?bilibili.com/[opus/]*([0-9]{18,})',
                        res)))
     b23_list = re.findall('href="https://b23.tv/(.+?)">', res)
     b23_list = list(set(b23_list))
