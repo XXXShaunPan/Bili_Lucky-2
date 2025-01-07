@@ -563,6 +563,18 @@ def pre_man():
     for art_id in action():
         main(parse_article_get_dy(art_id))
 
+def check_is_win(dy_id):
+    check_list = []
+    replys = req_get(f"https://api.bilibili.com/x/msgfeed/reply?platform=web&build=0&mobi_app=web").json()['data']['items']
+    for reply in replys:
+        if reply['reply_time'] >= time.time() - 3600*36:
+            check_list.append(('reply',reply['user']['nickname'], reply['item']['source_content']))
+    ats = req_get(f"https://api.bilibili.com/x/msgfeed/at?build=0&mobi_app=web").json()['data']['items']
+    for at in ats:
+        if at['at_time'] >= time.time() - 3600*36:
+            check_list.append(('at',at['user']['nickname'], at['item']['source_content']))
+    send_email(
+            title='中奖啦！！！', content=f'{check_list}')
 
 already_dynamic_id = get_already_dynamic_id()
 # already_dynamic_id = col_dynamic.find({},{'_id':0,'dynamic_id':1})
@@ -571,3 +583,4 @@ if __name__ == '__main__':
     if need_follow_account:
         with open(f'bili_lucky_detail/need_follow_account.txt', 'a') as f:
             f.write('\n'.join(need_follow_account))
+    check_is_win()
