@@ -575,8 +575,9 @@ def check_is_win():
         log_.info(f'{('at: ',at['user']['nickname'], at['item']['source_content'])}')
         if at['at_time'] >= time.time() - 3600*36:
             check_list.append(('at: ',at['user']['nickname'], at['item']['source_content']))
-    send_email(
-            title='中奖啦！！！', content=f'{check_list}')
+    if check_list:
+        send_email(
+                title='中奖啦！！！', content=f'{check_list}')
 
 already_dynamic_id = get_already_dynamic_id()
 # already_dynamic_id = col_dynamic.find({},{'_id':0,'dynamic_id':1})
