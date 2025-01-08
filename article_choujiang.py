@@ -563,7 +563,7 @@ def pre_man():
     for art_id in action():
         main(parse_article_get_dy(art_id))
 
-def check_is_win(dy_id):
+def check_is_win():
     check_list = []
     replys = req_get(f"https://api.bilibili.com/x/msgfeed/reply?platform=web&build=0&mobi_app=web").json()['data']['items']
     for reply in replys:
