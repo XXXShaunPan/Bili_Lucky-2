@@ -567,12 +567,12 @@ def check_is_win():
     check_list = []
     replys = req_get(f"https://api.bilibili.com/x/msgfeed/reply?platform=web&build=0&mobi_app=web").json()['data']['items']
     for reply in replys:
-        log_.info(f'{('reply: ',reply['user']['nickname'], reply['item']['source_content'])}')
+        log_.info(f'{("reply: ",reply['user']['nickname'], reply['item']['source_content'])}')
         if reply['reply_time'] >= time.time() - 3600*36:
             check_list.append(('reply: ',reply['user']['nickname'], reply['item']['source_content']))
     ats = req_get(f"https://api.bilibili.com/x/msgfeed/at?build=0&mobi_app=web").json()['data']['items']
     for at in ats:
-        log_.info(f'{('at: ',at['user']['nickname'], at['item']['source_content'])}')
+        log_.info(f'{("at: ",at['user']['nickname'], at['item']['source_content'])}')
         if at['at_time'] >= time.time() - 3600*36:
             check_list.append(('at: ',at['user']['nickname'], at['item']['source_content']))
     if check_list:
