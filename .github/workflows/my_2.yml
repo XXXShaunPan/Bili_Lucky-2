@@ -57,7 +57,7 @@ jobs:
         article_id: ${{ github.event.inputs.article_id }}
         BILI_COOKIE_FROM_INPUT: ${{ github.event.inputs.bili_cookie }}
       run: |
-        python3 article_choujiang.py >> articles_lucky.log
+        python3 article_choujiang.py
       
 #     - name: 获取指定数据
 #       if: github.event_name == 'workflow_dispatch'
