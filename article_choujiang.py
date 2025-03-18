@@ -25,6 +25,8 @@ csrf = list(filter(lambda x: 'bili_jct' in x,
 
 article_uid = [
     '226257459',
+    '2149231',
+    '100680137',
     # '3493086911007529'
 ]
 
@@ -234,6 +236,7 @@ def parse_article_get_dy(article_id):
     if not article_id:
         return []
     res = req_get(f'https://www.bilibili.com/read/cv{article_id}').text
+    res = res.encode().decode('unicode_escape')
     result = list(
         set(re.findall(r'https://\w+\.?bilibili.com/[opus/]*([0-9]{18,})',
                        res)))
