@@ -320,8 +320,9 @@ def get_uid_oid(dy_id):
         ).json()
         keys = res['data']['card']['desc']
 
-        if 'lottery_id' in res['data']['card'].get(
-                'extend_json', '') or res['data']['card'].get(
+        if  'lottery_id' in res['data']['card'].get(
+                'extend_json', '') or 'create.big_plus' in str(res['data']['card'].get(
+                'extend_json', '')) or res['data']['card'].get(
                     'extension') or "reserve_id" in res['data']['card'][
                         'extend_json'] or res['data']['card']['display'].get(
                             'add_on_card_info'):
