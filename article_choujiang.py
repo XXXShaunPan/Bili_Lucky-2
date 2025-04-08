@@ -167,8 +167,7 @@ def process_already_art_id(article_id=0, options='read'):
     else:
         with open('bili_lucky_detail/alread_process_article_id.txt', 'a') as f:
             f.write(f'\n{article_id}')
-        send_email(title='success',
-                   content=f'bili_lucky_detail/{today}_logger.log')
+
 
 
 article_ids = process_already_art_id()
@@ -602,4 +601,6 @@ if __name__ == '__main__':
     if need_follow_account:
         with open(f'bili_lucky_detail/need_follow_account.txt', 'a') as f:
             f.write('\n'.join(need_follow_account))
+    send_email(title='success',
+           content=f'bili_lucky_detail/{today}_logger.log')
     check_is_win()
