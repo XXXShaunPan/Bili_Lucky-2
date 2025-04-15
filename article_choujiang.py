@@ -433,7 +433,7 @@ def to_follow(uid):
     # if res['code'] == 0:
     msg = res.get('message', '')
     if '异常' in msg:
-        need_follow_account.append(uid)
+        need_follow_account.append(str(uid))
     logger.info(f"关注 ==== {uid} {msg}")
 
 
