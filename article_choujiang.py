@@ -26,7 +26,6 @@ csrf = list(filter(lambda x: 'bili_jct' in x,
 
 article_uid = [
     '226257459',
-    '2149231',
     '100680137',
     # '3493086911007529'
 ]
