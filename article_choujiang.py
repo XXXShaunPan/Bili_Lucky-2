@@ -13,7 +13,7 @@ from pytz import timezone
 from requests.exceptions import *
 import execjs
 from LogScript import Log
-# from emailSender import EmailSender
+from emailSender import EmailSender
 
 log_ = None
 check_follow_ban = False
@@ -23,7 +23,6 @@ cookie, article_id, MAILLQQ, MAILLSECRET = [
     os.environ.get(key, '')
     for key in ["BILI_COOKIE", "article_id", "MAILLQQ", "MAILLSECRET"]
 ]
-cookie = "buvid3=02F7ABD8-6183-074E-2C66-0056F21B199604491infoc; b_nut=1785305304; _uuid=2644BC98-DEDA-1333-9489-538F71EF77B304686infoc; buvid_fp=fcee54640d51e0b6a74d300f77e1d32c; buvid4=96824C3F-36FD-6831-5963-8859B1AE099373681-024092407-+Hkhi4zOncNE1bIJxACXLw%3D%3D; theme-tip-show=SHOWED; theme-avatar-tip-show=SHOWED; rpdid=|(JlR)mlY|lu0J'u~)lJ|lR|k; home_feed_column=5; browser_resolution=1720-966; hit-dyn-v2=1; bili_ticket=eyJhbGciOiJIUzI1NiIsImtpZCI6InMwMyIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3ODcwNjg1MTIsImlhdCI6MTc4NjgwOTI1MiwicGx0IjotMX0.8VPywlKYp4GTvTszjCQ0TXRXmyKAA9I1rk5g7n0qES4; bili_ticket_expires=1787068452; theme-switch-show=SHOWED; PVID=1; LIVE_BUVID=AUTO4817868093847535; ogv_device_support_dolby=0; ogv_device_support_hdr=1; SESSDATA=90c6ef9e%2C1802489167%2C75467%2A82CjCAUXuvCXaHQpXqLH3ilS8kgpV4dtrNgLXVeRYgSAwfyMnptrT_inqINnpQpGihlEcSVmZ0eHRWQXJiaXpiWklhdjdmcTRnYTFfZ3JjZzNTUnJ4V1psRTNKM25iUjc1eVB1TFZZcEthQ0xFWEJWX0pLbHE4RUZLV1V1TWEwRElXaGZJQjNkaWhnIIEC; bili_jct=486c5c2fce09c5ec00033f1e33e0ea52; DedeUserID=1090970340; DedeUserID__ckMd5=aae500216002dd45; sid=50m358r3; CURRENT_QUALITY=80; bp_t_offset_1090970340=1237424453579702272; CURRENT_FNVAL=2000; b_lsid=7DA25F74_1A0137AB478"
 csrf = list(filter(lambda x: 'bili_jct' in x,
                    cookie.split('; ')))[0].split('=')[1]
 
@@ -202,13 +201,13 @@ def send_email(title='', content=''):
     if content.endswith('.log'):
         with open(f'{content}', 'r', encoding='utf-8') as f:
             content = f.read()
-    print(title)
-    print(content)
-    # with EmailSender(username=MAILLQQ,
-    #                  password=MAILLSECRET,
-    #                  smtpserver='smtp.qq.com',
-    #                  sender='动态Lucky-report') as email:
-    #     email.send([MAILLQQ], title, content)
+    # print(title)
+    # print(content)
+    with EmailSender(username=MAILLQQ,
+                     password=MAILLSECRET,
+                     smtpserver='smtp.qq.com',
+                     sender='动态Lucky-report') as email:
+        email.send([MAILLQQ], title, content)
 
 
 def save_dynamic(dynamic_id, send_id, filename='bili_lucky_dyid_list.txt'):
