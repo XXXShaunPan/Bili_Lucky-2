@@ -3,3 +3,4 @@ requests
 loguru
 better-exceptions
 PyExecJS
+Flask==3.0.3

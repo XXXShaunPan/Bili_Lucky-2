@@ -1,0 +1,39 @@
+2026-08-19 13:23:18,273|line:298| processing article 52463726
+2026-08-19 13:24:03,456|line:298| processing article 52460149
+2026-08-19 13:24:09,414|line:298| processing article 52446973
+2026-08-19 13:24:14,852|line:298| processing article 52446915
+2026-08-19 13:24:17,180|line:298| processing article 52430748
+2026-08-19 13:24:34,199|line:279| 412 Client Error: Precondition Failed for url: https://api.bilibili.com/x/polymer/web-dynamic/v1/detail/forward?id=1237352592385769478&offset=&web_location=333.1368
+2026-08-19 13:24:37,505|line:279| 412 Client Error: Precondition Failed for url: https://api.bilibili.com/x/polymer/web-dynamic/v1/detail/forward?id=1232309469667393556&offset=&web_location=333.1368
+2026-08-19 13:24:38,374|line:279| 412 Client Error: Precondition Failed for url: https://api.bilibili.com/x/polymer/web-dynamic/v1/detail/forward?id=1237352592385769478&offset=&web_location=333.1368
+2026-08-19 13:24:39,678|line:279| 412 Client Error: Precondition Failed for url: https://api.bilibili.com/x/polymer/web-dynamic/v1/detail/forward?id=1232309469667393556&offset=&web_location=333.1368
+2026-08-19 13:24:40,868|line:279| 412 Client Error: Precondition Failed for url: https://api.bilibili.com/x/polymer/web-dynamic/v1/detail/forward?id=1232309469667393556&offset=&web_location=333.1368
+2026-08-19 13:24:43,011|line:279| 412 Client Error: Precondition Failed for url: https://api.bilibili.com/x/polymer/web-dynamic/v1/detail/forward?id=1237352592385769478&offset=1238137203451756544&web_location=333.1368
+2026-08-19 13:24:43,053|line:279| 412 Client Error: Precondition Failed for url: https://api.bilibili.com/x/polymer/web-dynamic/v1/detail/forward?id=1232309469667393556&offset=&web_location=333.1368
+2026-08-19 13:24:44,228|line:279| 412 Client Error: Precondition Failed for url: https://api.bilibili.com/x/polymer/web-dynamic/v1/detail/forward?id=1232309469667393556&offset=&web_location=333.1368
+2026-08-19 13:24:45,196|line:279| 412 Client Error: Precondition Failed for url: https://api.bilibili.com/x/polymer/web-dynamic/v1/detail/forward?id=1237352592385769478&offset=1238137203451756544&web_location=333.1368
+2026-08-19 13:24:46,361|line:279| 412 Client Error: Precondition Failed for url: https://api.bilibili.com/x/polymer/web-dynamic/v1/detail/forward?id=1237352592385769478&offset=1238137203451756544&web_location=333.1368
+2026-08-19 13:24:49,535|line:279| 412 Client Error: Precondition Failed for url: https://api.bilibili.com/x/polymer/web-dynamic/v1/detail/forward?id=1237352592385769478&offset=1238137203451756544&web_location=333.1368
+2026-08-19 13:24:52,736|line:279| 412 Client Error: Precondition Failed for url: https://api.bilibili.com/x/polymer/web-dynamic/v1/detail/forward?id=1237352592385769478&offset=1238137203451756544&web_location=333.1368
+2026-08-19 13:25:08,104|line:279| 412 Client Error: Precondition Failed for url: https://api.bilibili.com/x/polymer/web-dynamic/v1/detail/forward?id=1235987855781658663&offset=&web_location=333.1368
+2026-08-19 13:25:09,259|line:279| 412 Client Error: Precondition Failed for url: https://api.bilibili.com/x/polymer/web-dynamic/v1/detail/forward?id=1235987855781658663&offset=&web_location=333.1368
+2026-08-19 13:25:14,910|line:279| 412 Client Error: Precondition Failed for url: https://api.bilibili.com/x/polymer/web-dynamic/v1/detail/forward?id=1235987855781658663&offset=1238107374877671445&web_location=333.1368
+2026-08-19 13:25:38,726|line:298| processing article 52400982
+2026-08-19 13:25:39,320|line:279| 412 Client Error: Precondition Failed for url: https://api.bilibili.com/x/polymer/web-dynamic/v1/detail/forward?id=1237352592385769478&offset=1238137254991364129&web_location=333.1368
+2026-08-19 13:26:50,036|line:279| 412 Client Error: Precondition Failed for url: https://api.bilibili.com/x/polymer/web-dynamic/v1/detail/forward?id=1236483069816340481&offset=&web_location=333.1368
+2026-08-19 13:26:56,653|line:279| 412 Client Error: Precondition Failed for url: https://api.bilibili.com/x/polymer/web-dynamic/v1/detail/forward?id=1236483069816340481&offset=1237760539094941698&web_location=333.1368
+2026-08-19 13:26:59,782|line:279| 412 Client Error: Precondition Failed for url: https://api.bilibili.com/x/polymer/web-dynamic/v1/detail/forward?id=1236483069816340481&offset=1237760539094941698&web_location=333.1368
+2026-08-19 13:27:04,866|line:298| processing article 52291510
+2026-08-19 13:27:10,014|line:298| processing article 51986402
+2026-08-19 13:28:41,013|line:298| processing article 51986402
+2026-08-19 13:28:47,794|line:279| 412 Client Error: Precondition Failed for url: https://api.bilibili.com/x/polymer/web-dynamic/v1/detail?timezone_offset=-480&id=1227334067921354758&features=itemOpusStyle
+2026-08-19 13:28:47,803|line:279| 412 Client Error: Precondition Failed for url: https://api.bilibili.com/x/polymer/web-dynamic/v1/detail?timezone_offset=-480&id=1220793094701580322&features=itemOpusStyle
+2026-08-19 13:28:48,073|line:279| 412 Client Error: Precondition Failed for url: https://api.bilibili.com/x/polymer/web-dynamic/v1/detail?timezone_offset=-480&id=1229962038153838608&features=itemOpusStyle
+2026-08-19 13:28:48,764|line:279| 412 Client Error: Precondition Failed for url: https://api.bilibili.com/x/polymer/web-dynamic/v1/detail?timezone_offset=-480&id=1230014982210453555&features=itemOpusStyle
+2026-08-19 13:28:51,018|line:279| 412 Client Error: Precondition Failed for url: https://api.bilibili.com/x/polymer/web-dynamic/v1/detail?timezone_offset=-480&id=1230043165783752707&features=itemOpusStyle
+2026-08-19 13:28:52,509|line:298| processing article 52463726
+2026-08-19 13:28:53,480|line:279| 412 Client Error: Precondition Failed for url: https://api.bilibili.com/x/polymer/web-dynamic/v1/detail?timezone_offset=-480&id=1222632880419635207&features=itemOpusStyle
+2026-08-19 13:28:53,949|line:279| 412 Client Error: Precondition Failed for url: https://api.bilibili.com/x/polymer/web-dynamic/v1/detail?timezone_offset=-480&id=1229575293498294289&features=itemOpusStyle
+2026-08-19 13:28:54,186|line:279| 412 Client Error: Precondition Failed for url: https://api.bilibili.com/x/polymer/web-dynamic/v1/detail?timezone_offset=-480&id=1230043165783752707&features=itemOpusStyle
+2026-08-19 13:28:54,465|line:279| 412 Client Error: Precondition Failed for url: https://api.bilibili.com/x/polymer/web-dynamic/v1/detail?timezone_offset=-480&id=1228166454037184521&features=itemOpusStyle
+2026-08-19 13:28:55,218|line:279| 412 Client Error: Precondition Failed for url: https://api.bilibili.com/x/polymer/web-dynamic/v1/detail?timezone_offset=-480&id=1230856400675012663&features=itemOpusStyle
