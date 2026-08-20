@@ -317,6 +317,8 @@ def spider_post(url, data1, data_type):
                               proxies=proxies,
                               timeout=5)
             res.raise_for_status()
+            if res.json().get('code') == -352:
+                continue
             return res.json()
         except (RequestException, ValueError) as e:
             logger.error(f'post_{e}')
@@ -336,6 +338,8 @@ def req_get(url, need_check_ban=False, request_headers=None):
                 message = res.json().get('message', '')
                 if '风控' in message:
                     raise HTTPError(message)
+            elif res.json().get('code') != 0:
+                raise HTTPError(res.json().get('message', ''))
             return res
         except (RequestException, ValueError) as e:
             logger.error(e)
@@ -363,7 +367,8 @@ def extract_article_dynamic_ids(content):
                        content)))
     short_links = list(
         dict.fromkeys(re.findall(r'https://b23.tv/([^"?\\\s]+)', content)))
-    return dynamic_ids + transform_to_dy_id(short_links)
+    return dynamic_ids
+    # +transform_to_dy_id(short_links)
 
 
 def extract_opus_dynamic_entries(opus_data):
@@ -905,6 +910,7 @@ def to_repost(dynamic_id, source='available'):
         send_id = repost_res['data']['dyn_id_str']
         save_dynamic(*(dynamic_id, send_id))
         return send_id
+    logger.error(f"转发失败 {repost_res['message']}")
     return 0
 
 
